@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>duna.web — Presencia digital para negocios reales</title>
+<meta name="description" content="Agencia de diseño y desarrollo web en Calama, Chile. Páginas web corporativas, landing pages y menús digitales hechos a mano para negocios reales.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0D1018;
+    --bg-panel: #11151F;
+    --bg-panel-2: #151B27;
+    --line: rgba(200, 212, 204, 0.12);
+    --teal: #7ECFBE;
+    --teal-dim: rgba(126, 207, 190, 0.14);
+    --copper: #D9A05B;
+    --copper-dim: rgba(217, 160, 91, 0.16);
+    --moon: #C8D4CC;
+    --moon-dim: #8B96A0;
+    --white: #F3F6F3;
+    --display: 'Fraunces', Georgia, serif;
+    --sans: 'Manrope', -apple-system, sans-serif;
+    --ease: cubic-bezier(.22,.61,.36,1);
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--bg);
+    color:var(--moon);
+    font-family:var(--sans);
+    font-size:17px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    font-feature-settings:"kern" 1, "liga" 1;
+    overflow-x:hidden;
+  }
+
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 32px; }
+
+  h1, h2, h3{
+    font-family:var(--display);
+    color:var(--white);
+    font-weight:500;
+    line-height:1.12;
+    letter-spacing:-0.01em;
+    font-optical-sizing:auto;
+  }
+  p{ max-width:60ch; }
+
+  .eyebrow{
+    font-family:var(--sans);
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--teal);
+  }
+  .eyebrow.copper{ color:var(--copper); }
+
+  .dot{ color:var(--teal); }
+  ::selection{ background:var(--teal-dim); color:var(--white); }
+
+  /* ================= SCROLL REVEAL ================= */
+  [data-reveal]{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity .85s var(--ease), transform .85s var(--ease);
+    transition-delay:var(--d, 0ms);
+    will-change:opacity, transform;
+  }
+  [data-reveal].is-visible{ opacity:1; transform:translateY(0); }
+  [data-reveal="scale"]{ transform:translateY(0) scale(.94); }
+  [data-reveal="scale"].is-visible{ transform:scale(1); }
+  [data-reveal="left"]{ transform:translateX(-32px); }
+  [data-reveal="left"].is-visible{ transform:translateX(0); }
+  [data-reveal="right"]{ transform:translateX(32px); }
+  [data-reveal="right"].is-visible{ transform:translateX(0); }
+
+  @media (prefers-reduced-motion: reduce){
+    [data-reveal], .constellation *, .mountains-layer{ transition:none !important; animation:none !important; opacity:1 !important; transform:none !important; }
+  }
+
+  /* ================= STAR FIELD ================= */
+  .skyfield{ position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+  .skyfield.warm .star{ animation-name:twinkle-warm; }
+
+  @keyframes twinkle{
+    0%, 100%{ opacity:.15; transform:scale(.85); }
+    50%{ opacity:1; transform:scale(1); }
+  }
+  @keyframes twinkle-warm{
+    0%, 100%{ opacity:.2; transform:scale(.85); }
+    50%{ opacity:.9; transform:scale(1.05); }
+  }
+  .star{
+    animation:twinkle 4.5s ease-in-out infinite;
+    transform-origin:center;
+  }
+
+  /* ================= CONSTELLATIONS ================= */
+  .constellation{ position:absolute; overflow:visible; pointer-events:none; z-index:1; }
+  .constellation .link{
+    fill:none;
+    stroke:var(--teal);
+    stroke-width:1;
+    opacity:.55;
+    stroke-dasharray:340;
+    stroke-dashoffset:340;
+    transition:stroke-dashoffset 1.9s var(--ease);
+  }
+  .constellation.copper .link{ stroke:var(--copper); }
+  .constellation .node{
+    fill:var(--teal);
+    opacity:0;
+    transform:scale(.3);
+    transform-box:fill-box;
+    transform-origin:center;
+    transition:opacity .5s var(--ease), transform .5s var(--ease);
+    transition-delay:var(--nd, 0ms);
+  }
+  .constellation.copper .node{ fill:var(--copper); }
+  .constellation.draw .link{ stroke-dashoffset:0; }
+  .constellation.draw .node{ opacity:1; transform:scale(1); }
+
+  /* ================= NAV ================= */
+  header.nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(13,16,24,0.78);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    transition:border-color .4s ease;
+  }
+  .nav-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 32px; max-width:1180px; margin:0 auto;
+  }
+  .logo{ font-family:var(--display); font-size:22px; color:var(--white); letter-spacing:-0.01em; }
+  .nav-links{ display:flex; gap:36px; font-size:14px; color:var(--moon-dim); }
+  .nav-links a{ position:relative; }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; right:0; bottom:-4px; height:1px;
+    background:var(--teal); transform:scaleX(0); transform-origin:left;
+    transition:transform .3s var(--ease);
+  }
+  .nav-links a:hover{ color:var(--teal); }
+  .nav-links a:hover::after{ transform:scaleX(1); }
+  .nav-cta{
+    font-size:13px; font-weight:700; letter-spacing:0.04em;
+    padding:10px 20px; border:1px solid var(--teal); border-radius:2px; color:var(--teal);
+    transition:background .25s ease, transform .25s ease;
+  }
+  .nav-cta:hover{ background:var(--teal-dim); transform:translateY(-1px); }
+  @media (max-width:820px){ .nav-links{ display:none; } }
+
+  /* ================= HERO ================= */
+  .hero{
+    position:relative; padding:200px 0 0; overflow:hidden;
+    background:
+      radial-gradient(ellipse 900px 500px at 50% -10%, rgba(126,207,190,0.10), transparent 60%),
+      var(--bg);
+  }
+  .hero .skyfield{ height:680px; }
+  .hero-inner{
+    position:relative; z-index:2; max-width:760px; margin:0 auto; text-align:center;
+    padding:0 32px 130px;
+  }
+  .hero .eyebrow{ display:block; margin-bottom:22px; }
+  .hero h1{ font-size:clamp(40px, 6vw, 68px); margin-bottom:26px; }
+  .hero h1 em{ font-style:italic; color:var(--teal); }
+  .hero p.lead{
+    font-family:var(--sans); font-size:19px; color:var(--moon);
+    margin:0 auto 44px; max-width:52ch;
+  }
+  .hero-actions{ display:flex; gap:18px; justify-content:center; flex-wrap:wrap; position:relative; z-index:5; pointer-events:auto; }
+
+  .btn{
+    display:inline-block; padding:15px 30px; font-size:14px; font-weight:700;
+    letter-spacing:0.04em; border-radius:2px;
+    transition:transform .2s var(--ease), background .2s ease, box-shadow .3s ease;
+  }
+  .btn-primary{ background:var(--teal); color:#0D1018; }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 8px 24px rgba(126,207,190,0.25); }
+  .btn-ghost{ border:1px solid var(--line); color:var(--moon); }
+  .btn-ghost:hover{ border-color:var(--teal); color:var(--teal); transform:translateY(-2px); }
+
+  .mountains-wrap{ position:relative; z-index:2; width:100%; line-height:0; pointer-events:none; }
+  .mountains-layer{ width:100%; display:block; transition:transform .1s linear; }
+  .mountains-layer.back{ opacity:0; transform:translateY(30px); transition:opacity 1.1s var(--ease) .2s, transform 1.1s var(--ease) .2s; }
+  .mountains-layer.front{ opacity:0; transform:translateY(46px); transition:opacity 1.1s var(--ease) .45s, transform 1.1s var(--ease) .45s; margin-top:-30%; }
+  body.loaded .mountains-layer.back,
+  body.loaded .mountains-layer.front{ opacity:1; transform:translateY(0); }
+
+  /* ================= SECTIONS ================= */
+  section{ position:relative; padding:110px 0; }
+  .section-head{ max-width:640px; margin:0 0 60px; }
+  .section-head .eyebrow{ display:block; margin-bottom:16px; }
+  .section-head h2{ font-size:clamp(30px, 4vw, 42px); }
+  .section-head p{ margin-top:18px; font-family:var(--sans); font-size:18px; color:var(--moon-dim); }
+  .panel{ background:var(--bg-panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+
+  /* ---- Nosotros ---- */
+  .about{ position:relative; }
+  .about-grid{
+    display:grid; grid-template-columns:0.9fr 1.1fr; gap:64px; align-items:start;
+    position:relative; z-index:2;
+  }
+  .about-card{
+    background:var(--bg-panel-2); border:1px solid var(--line); border-radius:4px; padding:36px;
+    transition:border-color .3s ease, transform .3s ease;
+  }
+  .about-card:hover{ border-color:rgba(126,207,190,0.35); transform:translateY(-3px); }
+  .about-card + .about-card{ margin-top:20px; }
+  .about-card .role{ font-family:var(--sans); font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--teal); margin-bottom:8px; }
+  .about-card .who{ font-family:var(--display); font-size:24px; color:var(--white); margin-bottom:10px; }
+  .about-card p{ font-size:15px; color:var(--moon-dim); max-width:none; }
+  .about-copy p{ margin-bottom:22px; font-size:17px; }
+  .about-copy p:last-child{ margin-bottom:0; }
+  @media (max-width:860px){ .about-grid{ grid-template-columns:1fr; } }
+
+  /* ---- Servicios (flip cards) ---- */
+  .flip-hint{
+    font-size:13px; color:var(--moon-dim); margin:-30px 0 32px;
+    font-style:italic;
+  }
+  .services{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:14px;
+  }
+  .flip-card{
+    background:transparent; height:230px; perspective:1400px; cursor:pointer;
+    border-radius:4px; outline-offset:4px;
+  }
+  .flip-card:focus-visible{ outline:1px solid var(--teal); }
+  .flip-inner{
+    position:relative; width:100%; height:100%;
+    transition:transform .7s var(--ease);
+    transform-style:preserve-3d;
+  }
+  .flip-card.is-flipped .flip-inner{ transform:rotateY(180deg); }
+  .flip-face{
+    position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
+    border:1px solid var(--line); border-radius:4px; padding:32px;
+    display:flex; flex-direction:column; background:var(--bg);
+    transition:border-color .3s ease;
+  }
+  .flip-card:hover .flip-face{ border-color:rgba(126,207,190,0.3); }
+  .flip-front{ justify-content:space-between; }
+  .flip-back{ transform:rotateY(180deg); background:var(--bg-panel-2); justify-content:center; }
+  .flip-face .num{ font-family:var(--display); font-size:15px; color:var(--teal); display:block; }
+  .flip-front h3{ font-size:21px; }
+  .flip-tap{
+    font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:var(--moon-dim);
+  }
+  .flip-back p{ font-size:15px; color:var(--moon); max-width:none; margin-top:14px; }
+  @media (max-width:860px){ .services{ grid-template-columns:1fr; } .flip-card{ height:200px; } }
+  @media (prefers-reduced-motion: reduce){ .flip-inner{ transition:none; } }
+
+  /* ---- Proceso ---- */
+  .process{ position:relative; }
+  .step{
+    display:grid; grid-template-columns:80px 1fr; gap:28px; padding:30px 0;
+    border-top:1px solid var(--line); position:relative;
+  }
+  .step:last-child{ border-bottom:1px solid var(--line); }
+  .step .step-num{ font-family:var(--display); font-size:34px; color:var(--teal); line-height:1; }
+  .step h3{ font-size:20px; margin-bottom:8px; }
+  .step p{ font-size:15px; color:var(--moon-dim); max-width:58ch; }
+  .step-line{
+    position:absolute; left:38px; top:0; bottom:0; width:1px; background:var(--teal);
+    transform-origin:top; transform:scaleY(0); transition:transform 1.4s var(--ease);
+  }
+  .process.is-visible .step-line{ transform:scaleY(1); }
+
+  /* ---- Por qué ---- */
+  .why-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:44px 60px; }
+  .why-item{ display:flex; gap:18px; }
+  .why-mark{ font-family:var(--display); font-size:22px; color:var(--copper); flex-shrink:0; }
+  .why-item h3{ font-size:19px; margin-bottom:8px; }
+  .why-item p{ font-size:15px; color:var(--moon-dim); max-width:46ch; }
+  @media (max-width:700px){ .why-grid{ grid-template-columns:1fr; } }
+
+  /* ---- Precios ---- */
+  .price-card{
+    display:grid; grid-template-columns:1.2fr 1fr; gap:0;
+    border:1px solid var(--line); border-radius:4px; overflow:hidden;
+  }
+  .price-info{ padding:48px; }
+  .price-info h3{ font-size:26px; margin-bottom:14px; }
+  .price-info p{ font-size:16px; color:var(--moon-dim); }
+  .price-figures{ background:var(--bg-panel-2); padding:48px; border-left:1px solid var(--line); }
+  .figure{ padding:18px 0; border-bottom:1px solid var(--line); }
+  .figure:last-child{ border-bottom:none; padding-bottom:0; }
+  .figure:first-child{ padding-top:0; }
+  .figure .label{ font-size:13px; letter-spacing:0.06em; text-transform:uppercase; color:var(--moon-dim); margin-bottom:6px; }
+  .figure .amount{
+    font-family:var(--display); font-size:34px; font-weight:600; color:var(--white);
+    font-variant-numeric:tabular-nums; font-optical-sizing:auto;
+    font-feature-settings:"tnum" 1;
+  }
+  .figure .amount .count{ font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1; display:inline-block; min-width:3.4ch; text-align:right; }
+  .figure .amount .unit{ font-family:var(--sans); font-size:14px; color:var(--moon-dim); font-weight:400; }
+  .price-note{ margin-top:24px; font-size:13px; color:var(--moon-dim); }
+  @media (max-width:820px){ .price-card{ grid-template-columns:1fr; } .price-figures{ border-left:none; border-top:1px solid var(--line); } }
+
+  /* ---- Contacto ---- */
+  .contact{ text-align:center; position:relative; overflow:hidden; }
+  .contact .skyfield{ height:100%; }
+  .contact-inner{ max-width:620px; margin:0 auto; position:relative; z-index:2; }
+  .contact h2{ font-size:clamp(32px, 5vw, 48px); margin-bottom:20px; }
+  .contact p.lead{ font-family:var(--sans); font-size:18px; color:var(--moon-dim); margin:0 auto 40px; max-width:50ch; }
+  .contact-actions{ display:flex; gap:18px; justify-content:center; flex-wrap:wrap; margin-bottom:52px; position:relative; z-index:5; pointer-events:auto; }
+  .contact-meta{
+    display:flex; justify-content:center; gap:48px; flex-wrap:wrap; font-size:14px; color:var(--moon-dim);
+    border-top:1px solid var(--line); padding-top:36px;
+  }
+  .contact-meta strong{ display:block; color:var(--white); font-weight:700; font-family:var(--sans); font-size:15px; margin-bottom:4px; letter-spacing:0.02em; }
+
+  /* ---- Footer ---- */
+  footer{ border-top:1px solid var(--line); padding:36px 0; }
+  .footer-inner{
+    display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;
+    font-size:13px; color:var(--moon-dim);
+  }
+  .footer-inner .logo{ font-size:17px; }
+
+  @media (max-width:600px){
+    .wrap{ padding:0 22px; }
+    section{ padding:80px 0; }
+    .about-card{ padding:26px; }
+    .price-info, .price-figures{ padding:30px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="logo">duna<span class="dot">.</span>web</div>
+    <nav class="nav-links">
+      <a href="#nosotros">Nosotros</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#proceso">Proceso</a>
+      <a href="#precios">Precios</a>
+    </nav>
+    <a class="nav-cta" href="https://wa.me/56920156174" target="_blank" rel="noopener">Cotizar</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="skyfield" id="sky-hero"></div>
+
+    <svg class="constellation" id="cross-hero" viewBox="0 0 260 260" width="260" height="260" style="top:60px; right:6%;">
+      <line class="link" x1="130" y1="20" x2="130" y2="220" style="stroke-dasharray:200; stroke-dashoffset:200;"/>
+      <line class="link" x1="40" y1="110" x2="220" y2="150" style="stroke-dasharray:184; stroke-dashoffset:184;"/>
+      <circle class="node" cx="130" cy="20"  r="3" style="--nd:0ms;"/>
+      <circle class="node" cx="130" cy="220" r="3.4" style="--nd:120ms;"/>
+      <circle class="node" cx="40"  cy="110" r="2.6" style="--nd:240ms;"/>
+      <circle class="node" cx="220" cy="150" r="3" style="--nd:360ms;"/>
+      <circle class="node" cx="130" cy="112" r="2.2" style="--nd:480ms;"/>
+    </svg>
+
+    <div class="hero-inner">
+      <span class="eyebrow" data-reveal style="--d:0ms;">Diseño &amp; desarrollo web · Calama, Chile</span>
+      <h1 data-reveal style="--d:90ms;">Presencia digital<br>para <em>negocios reales</em>.</h1>
+      <p class="lead" data-reveal style="--d:180ms;">Sitios web hechos a mano para negocios del norte de Chile. Sin plantillas genéricas ni relleno — solo lo necesario para que tu negocio se vea profesional en línea.</p>
+      <div class="hero-actions" data-reveal style="--d:270ms;">
+        <a class="btn btn-primary" href="https://wa.me/56920156174" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+        <a class="btn btn-ghost" href="#servicios">Ver qué hacemos</a>
+      </div>
+    </div>
+
+    <div class="mountains-wrap">
+      <svg class="mountains-layer back" viewBox="0 0 1440 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="0,220 0,140 180,60 340,130 520,40 700,120 860,70 1040,150 1220,90 1440,150 1440,220" fill="#151B27"/>
+      </svg>
+      <svg class="mountains-layer front" viewBox="0 0 1440 220" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="0,220 0,175 220,110 420,170 640,100 880,175 1080,120 1280,180 1440,140 1440,220" fill="#0D1018"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section id="nosotros" class="about">
+    <svg class="constellation" id="cross-about" viewBox="0 0 200 200" width="200" height="200" style="bottom:-20px; left:2%;">
+      <line class="link" x1="100" y1="10" x2="100" y2="170"/>
+      <line class="link" x1="30" y1="90" x2="170" y2="120"/>
+      <circle class="node" cx="100" cy="10"  r="2.6" style="--nd:0ms;"/>
+      <circle class="node" cx="100" cy="170" r="3"   style="--nd:140ms;"/>
+      <circle class="node" cx="30"  cy="90"  r="2.2" style="--nd:280ms;"/>
+      <circle class="node" cx="170" cy="120" r="2.6" style="--nd:420ms;"/>
+    </svg>
+    <div class="wrap">
+      <div class="about-grid">
+        <div>
+          <div class="about-card" data-reveal="left" style="--d:0ms;">
+            <div class="role">Cofundador</div>
+            <div class="who">Benjamín</div>
+            <p>Construye cada sitio de principio a fin — desde la primera idea hasta la versión publicada — dándole forma a cada detalle hasta que queda listo para salir en línea.</p>
+          </div>
+          <div class="about-card" data-reveal="left" style="--d:140ms;">
+            <div class="role">Cofundador</div>
+            <div class="who">Dinko</div>
+            <p>Es la cara visible ante el cliente: conversa cara a cara, explica el proceso, conversa el presupuesto y aplica los ajustes que cada cliente pide sobre la marcha.</p>
+          </div>
+        </div>
+        <div class="about-copy" data-reveal="right" style="--d:80ms;">
+          <span class="eyebrow" style="display:block; margin-bottom:18px;">Quiénes somos</span>
+          <h2 style="font-size:clamp(28px, 3.6vw, 36px); margin-bottom:24px;">Dos fundadores, un mismo objetivo.</h2>
+          <p>duna.web nació en Calama con una idea simple: los negocios locales — talleres, tiendas, restaurantes, prestadores de servicios — merecen una presencia en línea tan seria como la de cualquier empresa grande, sin pagar precios de agencia grande ni esperar meses por un resultado genérico.</p>
+          <p>Nos dividimos el trabajo para que cada parte del proceso quede en las mejores manos: uno construye, el otro acompaña. Así cada cliente tiene siempre a alguien disponible, ya sea para una duda técnica o una conversación cara a cara.</p>
+          <p>Como el cielo de Atacama, que se ve igual de nítido para todos, creemos que una buena presencia digital no debería ser un privilegio de unos pocos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="panel">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Qué hacemos</span>
+        <h2>Cuatro formas de estar en línea, bien hechas.</h2>
+        <p>Elegimos el formato según lo que tu negocio realmente necesita — no según lo que sea más fácil de vender.</p>
+      </div>
+      <p class="flip-hint" data-reveal style="--d:60ms;">Haz clic en cada tarjeta para darla vuelta y ver el detalle.</p>
+      <div class="services" data-reveal="scale">
+        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Páginas web corporativas — haz clic para ver el detalle">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <span class="num">01</span>
+              <h3>Páginas web corporativas</h3>
+              <span class="flip-tap">Toca para ver más ↻</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="num">01</span>
+              <p>El sitio principal de tu negocio: quiénes son, qué ofrecen, cómo contactarlos. Diseñado para transmitir confianza desde el primer segundo.</p>
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Landing pages — haz clic para ver el detalle">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <span class="num">02</span>
+              <h3>Landing pages</h3>
+              <span class="flip-tap">Toca para ver más ↻</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="num">02</span>
+              <p>Una página enfocada en un solo objetivo — vender un producto, captar una reserva, promocionar un lanzamiento. Rápida y directa.</p>
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Menús digitales — haz clic para ver el detalle">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <span class="num">03</span>
+              <h3>Menús digitales</h3>
+              <span class="flip-tap">Toca para ver más ↻</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="num">03</span>
+              <p>Para restaurantes y cafeterías: un menú accesible por QR, fácil de actualizar y siempre al día, sin reimprimir nada.</p>
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Mantención mensual — haz clic para ver el detalle">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <span class="num">04</span>
+              <h3>Mantención mensual</h3>
+              <span class="flip-tap">Toca para ver más ↻</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="num">04</span>
+              <p>Actualizamos contenido, revisamos que todo funcione y aplicamos los cambios que necesites. Tu sitio no se abandona después de la entrega.</p>
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Identidad visual — haz clic para ver el detalle">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <span class="num">05</span>
+              <h3>Identidad visual</h3>
+              <span class="flip-tap">Toca para ver más ↻</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="num">05</span>
+              <p>Cuando un negocio no tiene una marca definida, ayudamos a construir una — colores, tipografía y tono — antes de construir el sitio.</p>
+            </div>
+          </div>
+        </div>
+        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Acompañamiento — haz clic para ver el detalle">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <span class="num">06</span>
+              <h3>Acompañamiento</h3>
+              <span class="flip-tap">Toca para ver más ↻</span>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="num">06</span>
+              <p>Explicamos cada decisión en lenguaje simple. No necesitas saber de tecnología para trabajar con nosotros.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESO -->
+  <section id="proceso">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Cómo trabajamos</span>
+        <h2>De la primera conversación al sitio publicado.</h2>
+      </div>
+      <div class="process">
+        <div class="step-line"></div>
+        <div class="step" data-reveal style="--d:0ms;">
+          <div class="step-num">01</div>
+          <div>
+            <h3>Conversamos</h3>
+            <p>Dinko conversa contigo sobre tu negocio, tus clientes y lo que necesitas resolver. Sin formularios largos — una conversación real, por WhatsApp o cara a cara.</p>
+          </div>
+        </div>
+        <div class="step" data-reveal style="--d:100ms;">
+          <div class="step-num">02</div>
+          <div>
+            <h3>Proponemos</h3>
+            <p>Te mostramos una dirección visual concreta — colores, tipografía, estructura — antes de construir nada, para que apruebes el rumbo desde el principio.</p>
+          </div>
+        </div>
+        <div class="step" data-reveal style="--d:200ms;">
+          <div class="step-num">03</div>
+          <div>
+            <h3>Construimos</h3>
+            <p>Benjamín desarrolla el sitio completo, optimizado para verse bien en el celular, que es donde la mayoría de tus clientes te van a encontrar.</p>
+          </div>
+        </div>
+        <div class="step" data-reveal style="--d:300ms;">
+          <div class="step-num">04</div>
+          <div>
+            <h3>Publicamos y acompañamos</h3>
+            <p>Dejamos el sitio en línea y seguimos disponibles después de la entrega — Dinko recibe tus pedidos de cambio y los aplicamos directamente.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- POR QUÉ -->
+  <section class="panel">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow copper">Por qué duna.web</span>
+        <h2>Lo que nos diferencia.</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-item" data-reveal style="--d:0ms;">
+          <span class="why-mark">—</span>
+          <div>
+            <h3>Hecho a mano, no en serie</h3>
+            <p>Cada sitio se diseña desde cero para el negocio que lo pidió. Nada de plantillas con el logo cambiado.</p>
+          </div>
+        </div>
+        <div class="why-item" data-reveal style="--d:80ms;">
+          <span class="why-mark">—</span>
+          <div>
+            <h3>Precios claros</h3>
+            <p>Un valor fijo por sitio y una mantención mensual simple. Sin letra chica ni cobros sorpresa.</p>
+          </div>
+        </div>
+        <div class="why-item" data-reveal style="--d:160ms;">
+          <span class="why-mark">—</span>
+          <div>
+            <h3>Base local</h3>
+            <p>Somos de Calama y entendemos el mercado del norte de Chile — no una agencia remota que nunca pisó la región.</p>
+          </div>
+        </div>
+        <div class="why-item" data-reveal style="--d:240ms;">
+          <span class="why-mark">—</span>
+          <div>
+            <h3>Soporte real</h3>
+            <p>Dinko responde directamente por WhatsApp. No hay tickets, formularios ni esperas de días.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRECIOS -->
+  <section id="precios">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow">Inversión</span>
+        <h2>Variable, según lo que necesite tu negocio.</h2>
+      </div>
+      <div class="price-card" data-reveal="scale">
+        <div class="price-info">
+          <h3>Cada proyecto tiene su propio precio.</h3>
+          <p>Incluye diseño a medida, desarrollo, optimización para celular y publicación en línea. El valor final depende del tamaño y complejidad del sitio — Dinko conversa contigo y te da un número exacto.</p>
+        </div>
+        <div class="price-figures">
+          <div class="figure">
+            <div class="label">Sitio web</div>
+            <div class="amount">$<span class="count" data-target="90000">0</span>&ndash;<span class="count" data-target="180000">0</span> <span class="unit">CLP</span></div>
+          </div>
+          <div class="figure">
+            <div class="label">Mantención</div>
+            <div class="amount">$<span class="count" data-target="25000">0</span>&ndash;<span class="count" data-target="40000">0</span> <span class="unit">CLP / mes</span></div>
+          </div>
+          <p class="price-note">Rango referencial — el valor exacto se conversa según tu proyecto. Escríbenos y te enviamos una cotización sin compromiso.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section class="contact panel">
+    <div class="skyfield warm" id="sky-contact"></div>
+    <svg class="constellation copper" id="cross-contact" viewBox="0 0 260 260" width="260" height="260" style="top:30px; left:8%;">
+      <line class="link" x1="130" y1="20" x2="130" y2="220"/>
+      <line class="link" x1="40" y1="110" x2="220" y2="150"/>
+      <circle class="node" cx="130" cy="20"  r="3"   style="--nd:0ms;"/>
+      <circle class="node" cx="130" cy="220" r="3.4" style="--nd:120ms;"/>
+      <circle class="node" cx="40"  cy="110" r="2.6" style="--nd:240ms;"/>
+      <circle class="node" cx="220" cy="150" r="3"   style="--nd:360ms;"/>
+      <circle class="node" cx="130" cy="112" r="2.2" style="--nd:480ms;"/>
+    </svg>
+    <div class="wrap contact-inner">
+      <span class="eyebrow copper" data-reveal>Hablemos</span>
+      <h2 data-reveal style="--d:80ms;">¿Listo para tener un sitio de verdad?</h2>
+      <p class="lead" data-reveal style="--d:160ms;">Cuéntanos sobre tu negocio y te respondemos con una propuesta concreta — sin vueltas.</p>
+      <div class="contact-actions" data-reveal style="--d:240ms;">
+        <a class="btn btn-primary" href="https://wa.me/56920156174" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+        <a class="btn btn-ghost" href="https://instagram.com/dunaweb" target="_blank" rel="noopener">Ver Instagram</a>
+      </div>
+      <div class="contact-meta" data-reveal style="--d:320ms;">
+        <div><strong>WhatsApp</strong>+56 9 2015 6174</div>
+        <div><strong>Instagram</strong>@dunaweb</div>
+        <div><strong>Ubicación</strong>Calama, Chile</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <div class="logo">duna<span class="dot">.</span>web</div>
+    <div>&copy;&nbsp;2026 duna.web — Presencia digital para negocios reales.</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Populate star fields with randomly placed, individually twinkling stars
+  function buildSky(el, count, warm){
+    var colors = warm ? ['#E9F2EC', '#D9A05B', '#C8D4CC'] : ['#E9F2EC', '#7ECFBE', '#C8D4CC'];
+    var frag = document.createDocumentFragment();
+    var svgNS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', '100%');
+    svg.style.position = 'absolute';
+    svg.style.inset = '0';
+    for (var i = 0; i < count; i++){
+      var c = document.createElementNS(svgNS, 'circle');
+      var x = Math.random() * 100;
+      var y = Math.random() * 100;
+      var r = (Math.random() * 1.1) + 0.6;
+      c.setAttribute('cx', x + '%');
+      c.setAttribute('cy', y + '%');
+      c.setAttribute('r', r);
+      c.setAttribute('fill', colors[Math.floor(Math.random() * colors.length)]);
+      c.setAttribute('class', 'star');
+      c.style.animationDelay = (Math.random() * 5) + 's';
+      c.style.animationDuration = (3.5 + Math.random() * 3) + 's';
+      svg.appendChild(c);
+    }
+    frag.appendChild(svg);
+    el.appendChild(frag);
+  }
+
+  var heroSky = document.getElementById('sky-hero');
+  var contactSky = document.getElementById('sky-contact');
+  if (heroSky) buildSky(heroSky, 90, false);
+  if (contactSky) buildSky(contactSky, 70, true);
+
+  // Entrance animation trigger
+  window.requestAnimationFrame(function(){
+    setTimeout(function(){ document.body.classList.add('loaded'); }, 120);
+  });
+
+  // Scroll reveal via IntersectionObserver (replays each time elements enter view)
+  var revealTargets = document.querySelectorAll('[data-reveal]');
+  var revealObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+      } else {
+        entry.target.classList.remove('is-visible');
+      }
+    });
+  }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+  revealTargets.forEach(function(t){ revealObserver.observe(t); });
+
+  // Constellations draw in and reset when scrolled out, so they redraw on re-entry
+  var constellations = document.querySelectorAll('.constellation');
+  var starObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){
+        entry.target.classList.add('draw');
+      } else {
+        entry.target.classList.remove('draw');
+      }
+    });
+  }, { threshold: 0.3 });
+  constellations.forEach(function(c){ starObserver.observe(c); });
+
+  // Process timeline vertical line
+  var processEl = document.querySelector('.process');
+  if (processEl){
+    var processObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        entry.target.classList.toggle('is-visible', entry.isIntersecting);
+      });
+    }, { threshold: 0.25 });
+    processObserver.observe(processEl);
+  }
+
+  // Counter animation for variable price ranges — counts up fast, replays on re-entry
+  function formatCLP(n){ return Math.round(n).toLocaleString('es-CL'); }
+  function animateCount(el, target){
+    var duration = 850 + Math.random() * 250;
+    var startTime = null;
+    function step(ts){
+      if (!startTime) startTime = ts;
+      var progress = Math.min((ts - startTime) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 4); // fast rise, quick settle
+      el.textContent = formatCLP(eased * target);
+      if (progress < 1){
+        el._raf = requestAnimationFrame(step);
+      } else {
+        el.textContent = formatCLP(target);
+      }
+    }
+    if (el._raf) cancelAnimationFrame(el._raf);
+    el._raf = requestAnimationFrame(step);
+  }
+  var priceCounts = document.querySelectorAll('.count');
+  if (priceCounts.length){
+    var countObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          animateCount(entry.target, parseInt(entry.target.getAttribute('data-target'), 10));
+        } else {
+          if (entry.target._raf) cancelAnimationFrame(entry.target._raf);
+          entry.target.textContent = '0';
+        }
+      });
+    }, { threshold: 0.5 });
+    priceCounts.forEach(function(c){ countObserver.observe(c); });
+  }
+
+  // Flip cards in "Qué hacemos" — click or keyboard to reveal detail
+  var flipCards = document.querySelectorAll('.flip-card');
+  function toggleFlip(card){
+    var flipped = card.classList.toggle('is-flipped');
+    card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+  }
+  flipCards.forEach(function(card){
+    card.addEventListener('click', function(){ toggleFlip(card); });
+    card.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        toggleFlip(card);
+      }
+    });
+  });
+
+  // Subtle parallax on hero mountains + star field while scrolling
+  var mountainsWrap = document.querySelector('.mountains-wrap');
+  var hero = document.querySelector('.hero');
+  var ticking = false;
+  function onScroll(){
+    if (!ticking){
+      window.requestAnimationFrame(function(){
+        var y = window.scrollY;
+        if (mountainsWrap && y < window.innerHeight * 1.4){
+          mountainsWrap.style.transform = 'translateY(' + (y * 0.12) + 'px)';
+        }
+        if (heroSky && y < window.innerHeight * 1.4){
+          heroSky.style.transform = 'translateY(' + (y * -0.06) + 'px)';
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
+</script>
+
+</body>
+</html>

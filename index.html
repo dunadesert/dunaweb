@@ -102,6 +102,17 @@
   .nav-cta:hover{ background:var(--accent); border-color:var(--accent); color:var(--cream); }
   @media (max-width:860px){ .nav-links{ display:none; } }
 
+  /* ============ LANGUAGE SWITCH ============ */
+  .lang-switch{ display:flex; align-items:center; gap:2px; margin-right:18px; border:1px solid var(--line); padding:3px; }
+  .lang-btn{
+    font-family:var(--sans); font-size:11px; font-weight:700; letter-spacing:0.03em;
+    padding:6px 9px; background:transparent; color:var(--ink-soft); border:none; cursor:pointer;
+    transition:background .2s ease, color .2s ease;
+  }
+  .lang-btn:hover{ color:var(--ink); }
+  .lang-btn.is-active{ background:var(--ink); color:var(--bg); }
+  @media (max-width:480px){ .lang-switch{ margin-right:10px; } .lang-btn{ padding:6px 7px; } }
+
   /* ============ HERO ============ */
   .hero{ position:relative; padding:180px 0 120px; overflow:hidden; }
   .hero-grid{
@@ -319,12 +330,17 @@
   <div class="nav-inner">
     <div class="logo">duna<span class="dot">.</span>web</div>
     <nav class="nav-links">
-      <a href="#nosotros">Nosotros</a>
-      <a href="#servicios">Servicios</a>
-      <a href="#proceso">Proceso</a>
-      <a href="#precios">Precios</a>
+      <a href="#nosotros" data-i18n="navNosotros">Nosotros</a>
+      <a href="#servicios" data-i18n="navServicios">Servicios</a>
+      <a href="#proceso" data-i18n="navProceso">Proceso</a>
+      <a href="#precios" data-i18n="navPrecios">Precios</a>
     </nav>
-    <a class="nav-cta" href="https://wa.me/56920156174" target="_blank" rel="noopener">Cotizar</a>
+    <div class="lang-switch" role="group" aria-label="Seleccionar idioma">
+      <button type="button" class="lang-btn is-active" data-lang="es">ES</button>
+      <button type="button" class="lang-btn" data-lang="fr">FR</button>
+      <button type="button" class="lang-btn" data-lang="en">EN</button>
+    </div>
+    <a class="nav-cta" href="https://wa.me/56920156174" target="_blank" rel="noopener" data-i18n="navCta">Cotizar</a>
   </div>
 </header>
 
@@ -335,20 +351,20 @@
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="hero-glow"></div>
     <div class="wrap hero-inner">
-      <span class="eyebrow" data-reveal style="--d:0ms;">Diseño &amp; desarrollo web · Calama, Chile</span>
-      <h1 data-reveal style="--d:90ms;">Presencia digital<br>para <span class="accent">negocios reales</span>.</h1>
+      <span class="eyebrow" data-reveal data-i18n="heroEyebrow" style="--d:0ms;">Diseño &amp; desarrollo web · Calama, Chile</span>
+      <h1 data-reveal data-i18n-html="heroTitle" style="--d:90ms;">Presencia digital<br>para <span class="accent">negocios reales</span>.</h1>
       <div class="slogan-rotator" data-reveal style="--d:180ms;">
-        <div class="slogan-track">
-          <span class="active">Sitios que se ven, no que se esconden.</span>
-          <span>Tu negocio, en línea, de verdad.</span>
-          <span>Diseño de Calama para el norte de Chile.</span>
-          <span>Nada de plantillas. Todo a medida.</span>
+        <div class="slogan-track" id="slogan-track">
+          <span class="active" data-i18n="slogan0">Sitios que se ven, no que se esconden.</span>
+          <span data-i18n="slogan1">Tu negocio, en línea, de verdad.</span>
+          <span data-i18n="slogan2">Diseño de Calama para el norte de Chile.</span>
+          <span data-i18n="slogan3">Nada de plantillas. Todo a medida.</span>
         </div>
         <span class="cursor" aria-hidden="true"></span>
       </div>
       <div class="hero-actions" data-reveal style="--d:270ms;">
-        <a class="btn btn-primary" href="https://wa.me/56920156174" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
-        <a class="btn btn-outline" href="#servicios">Ver qué hacemos</a>
+        <a class="btn btn-primary" href="https://wa.me/56920156174" target="_blank" rel="noopener" data-i18n="btnWhatsapp">Escríbenos por WhatsApp</a>
+        <a class="btn btn-outline" href="#servicios" data-i18n="btnServicios">Ver qué hacemos</a>
       </div>
     </div>
   </section>
@@ -367,22 +383,22 @@
     <div class="wrap">
       <div class="about-grid">
         <div class="about-copy" data-reveal>
-          <span class="eyebrow" style="display:block; margin-bottom:18px;">Quiénes somos</span>
-          <h2 style="font-size:clamp(26px, 3.4vw, 34px); margin-bottom:24px;">Dos fundadores, un mismo objetivo.</h2>
-          <p>duna.web nació en Calama con una idea simple: los negocios locales — talleres, tiendas, restaurantes, prestadores de servicios — merecen una presencia en línea tan seria como la de cualquier empresa grande, sin pagar precios de agencia grande ni esperar meses por un resultado genérico.</p>
-          <p>Nos dividimos el trabajo para que cada parte del proceso quede en las mejores manos: uno construye, el otro acompaña. Así cada cliente tiene siempre a alguien disponible, ya sea para una duda técnica o una conversación cara a cara.</p>
-          <p>Como el desierto que nos rodea, creemos que una buena presencia digital no debería ser un privilegio de unos pocos.</p>
+          <span class="eyebrow" data-i18n="aboutEyebrow" style="display:block; margin-bottom:18px;">Quiénes somos</span>
+          <h2 data-i18n="aboutTitle" style="font-size:clamp(26px, 3.4vw, 34px); margin-bottom:24px;">Dos fundadores, un mismo objetivo.</h2>
+          <p data-i18n="aboutP1">duna.web nació en Calama con una idea simple: los negocios locales — talleres, tiendas, restaurantes, prestadores de servicios — merecen una presencia en línea tan seria como la de cualquier empresa grande, sin pagar precios de agencia grande ni esperar meses por un resultado genérico.</p>
+          <p data-i18n="aboutP2">Nos dividimos el trabajo para que cada parte del proceso quede en las mejores manos: uno construye, el otro acompaña. Así cada cliente tiene siempre a alguien disponible, ya sea para una duda técnica o una conversación cara a cara.</p>
+          <p data-i18n="aboutP3">Como el desierto que nos rodea, creemos que una buena presencia digital no debería ser un privilegio de unos pocos.</p>
         </div>
         <div class="founders" data-reveal style="--d:100ms;">
           <div class="founder">
-            <div class="role">Cofundador</div>
+            <div class="role" data-i18n="cofounder">Cofundador</div>
             <div class="who">Benjamín</div>
-            <p>Construye cada sitio de principio a fin — desde la primera idea hasta la versión publicada — dándole forma a cada detalle hasta que queda listo para salir en línea.</p>
+            <p data-i18n="benjaminDesc">Construye cada sitio de principio a fin — desde la primera idea hasta la versión publicada — dándole forma a cada detalle hasta que queda listo para salir en línea.</p>
           </div>
           <div class="founder">
-            <div class="role">Cofundador</div>
+            <div class="role" data-i18n="cofounder">Cofundador</div>
             <div class="who">Dinko</div>
-            <p>Es la cara visible ante el cliente: conversa cara a cara, explica el proceso, conversa el presupuesto y aplica los ajustes que cada cliente pide sobre la marcha.</p>
+            <p data-i18n="dinkoDesc">Es la cara visible ante el cliente: conversa cara a cara, explica el proceso, conversa el presupuesto y aplica los ajustes que cada cliente pide sobre la marcha.</p>
           </div>
         </div>
       </div>
@@ -393,87 +409,87 @@
   <section id="servicios">
     <div class="wrap">
       <div class="section-head" data-reveal>
-        <span class="eyebrow">Qué hacemos</span>
-        <h2>Cuatro formas de estar en línea, bien hechas.</h2>
-        <p>Elegimos el formato según lo que tu negocio realmente necesita — no según lo que sea más fácil de vender.</p>
+        <span class="eyebrow" data-i18n="servicesEyebrow">Qué hacemos</span>
+        <h2 data-i18n="servicesTitle">Cuatro formas de estar en línea, bien hechas.</h2>
+        <p data-i18n="servicesP">Elegimos el formato según lo que tu negocio realmente necesita — no según lo que sea más fácil de vender.</p>
       </div>
-      <p class="flip-hint" data-reveal style="--d:60ms;">Haz clic en cada tarjeta para darla vuelta y ver el detalle.</p>
+      <p class="flip-hint" data-reveal style="--d:60ms;" data-i18n="flipHint">Haz clic en cada tarjeta para darla vuelta y ver el detalle.</p>
       <div class="services" data-reveal="scale">
-        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Páginas web corporativas — haz clic para ver el detalle">
+        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" data-i18n-aria="aria01" aria-label="Páginas web corporativas — haz clic para ver el detalle">
           <div class="flip-inner">
             <div class="flip-face flip-front">
               <span class="kicker-num">01</span>
-              <h3>Páginas web corporativas</h3>
-              <span class="flip-tap">Toca para ver más ↻</span>
+              <h3 data-i18n="svc01Title">Páginas web corporativas</h3>
+              <span class="flip-tap" data-i18n="flipTap">Toca para ver más ↻</span>
             </div>
             <div class="flip-face flip-back">
               <span class="kicker-num">01</span>
-              <p>El sitio principal de tu negocio: quiénes son, qué ofrecen, cómo contactarlos. Diseñado para transmitir confianza desde el primer segundo.</p>
+              <p data-i18n="svc01Desc">El sitio principal de tu negocio: quiénes son, qué ofrecen, cómo contactarlos. Diseñado para transmitir confianza desde el primer segundo.</p>
             </div>
           </div>
         </div>
-        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Landing pages — haz clic para ver el detalle">
+        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" data-i18n-aria="aria02" aria-label="Landing pages — haz clic para ver el detalle">
           <div class="flip-inner">
             <div class="flip-face flip-front">
               <span class="kicker-num">02</span>
-              <h3>Landing pages</h3>
-              <span class="flip-tap">Toca para ver más ↻</span>
+              <h3 data-i18n="svc02Title">Landing pages</h3>
+              <span class="flip-tap" data-i18n="flipTap">Toca para ver más ↻</span>
             </div>
             <div class="flip-face flip-back">
               <span class="kicker-num">02</span>
-              <p>Una página enfocada en un solo objetivo — vender un producto, captar una reserva, promocionar un lanzamiento. Rápida y directa.</p>
+              <p data-i18n="svc02Desc">Una página enfocada en un solo objetivo — vender un producto, captar una reserva, promocionar un lanzamiento. Rápida y directa.</p>
             </div>
           </div>
         </div>
-        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Menús digitales — haz clic para ver el detalle">
+        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" data-i18n-aria="aria03" aria-label="Menús digitales — haz clic para ver el detalle">
           <div class="flip-inner">
             <div class="flip-face flip-front">
               <span class="kicker-num">03</span>
-              <h3>Menús digitales</h3>
-              <span class="flip-tap">Toca para ver más ↻</span>
+              <h3 data-i18n="svc03Title">Menús digitales</h3>
+              <span class="flip-tap" data-i18n="flipTap">Toca para ver más ↻</span>
             </div>
             <div class="flip-face flip-back">
               <span class="kicker-num">03</span>
-              <p>Para restaurantes y cafeterías: un menú accesible por QR, fácil de actualizar y siempre al día, sin reimprimir nada.</p>
+              <p data-i18n="svc03Desc">Para restaurantes y cafeterías: un menú accesible por QR, fácil de actualizar y siempre al día, sin reimprimir nada.</p>
             </div>
           </div>
         </div>
-        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Mantención mensual — haz clic para ver el detalle">
+        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" data-i18n-aria="aria04" aria-label="Mantención mensual — haz clic para ver el detalle">
           <div class="flip-inner">
             <div class="flip-face flip-front">
               <span class="kicker-num">04</span>
-              <h3>Mantención mensual</h3>
-              <span class="flip-tap">Toca para ver más ↻</span>
+              <h3 data-i18n="svc04Title">Mantención mensual</h3>
+              <span class="flip-tap" data-i18n="flipTap">Toca para ver más ↻</span>
             </div>
             <div class="flip-face flip-back">
               <span class="kicker-num">04</span>
-              <p>Actualizamos contenido, revisamos que todo funcione y aplicamos los cambios que necesites. Tu sitio no se abandona después de la entrega.</p>
+              <p data-i18n="svc04Desc">Actualizamos contenido, revisamos que todo funcione y aplicamos los cambios que necesites. Tu sitio no se abandona después de la entrega.</p>
             </div>
           </div>
         </div>
-        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Identidad visual — haz clic para ver el detalle">
+        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" data-i18n-aria="aria05" aria-label="Identidad visual — haz clic para ver el detalle">
           <div class="flip-inner">
             <div class="flip-face flip-front">
               <span class="kicker-num">05</span>
-              <h3>Identidad visual</h3>
-              <span class="flip-tap">Toca para ver más ↻</span>
+              <h3 data-i18n="svc05Title">Identidad visual</h3>
+              <span class="flip-tap" data-i18n="flipTap">Toca para ver más ↻</span>
             </div>
             <div class="flip-face flip-back">
               <span class="kicker-num">05</span>
-              <p>Cuando un negocio no tiene una marca definida, ayudamos a construir una — colores, tipografía y tono — antes de construir el sitio.</p>
+              <p data-i18n="svc05Desc">Cuando un negocio no tiene una marca definida, ayudamos a construir una — colores, tipografía y tono — antes de construir el sitio.</p>
             </div>
           </div>
         </div>
-        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" aria-label="Acompañamiento — haz clic para ver el detalle">
+        <div class="flip-card" tabindex="0" role="button" aria-pressed="false" data-i18n-aria="aria06" aria-label="Acompañamiento — haz clic para ver el detalle">
           <div class="flip-inner">
             <div class="flip-face flip-front">
               <span class="kicker-num">06</span>
-              <h3>Acompañamiento</h3>
-              <span class="flip-tap">Toca para ver más ↻</span>
+              <h3 data-i18n="svc06Title">Acompañamiento</h3>
+              <span class="flip-tap" data-i18n="flipTap">Toca para ver más ↻</span>
             </div>
             <div class="flip-face flip-back">
               <span class="kicker-num">06</span>
-              <p>Explicamos cada decisión en lenguaje simple. No necesitas saber de tecnología para trabajar con nosotros.</p>
+              <p data-i18n="svc06Desc">Explicamos cada decisión en lenguaje simple. No necesitas saber de tecnología para trabajar con nosotros.</p>
             </div>
           </div>
         </div>
@@ -485,37 +501,37 @@
   <section id="proceso" class="panel-alt">
     <div class="wrap">
       <div class="section-head" data-reveal>
-        <span class="eyebrow">Cómo trabajamos</span>
-        <h2>De la primera conversación al sitio publicado.</h2>
+        <span class="eyebrow" data-i18n="processEyebrow">Cómo trabajamos</span>
+        <h2 data-i18n="processTitle">De la primera conversación al sitio publicado.</h2>
       </div>
       <div class="process">
         <div class="step-line"></div>
         <div class="step" data-reveal style="--d:0ms;">
           <div class="step-num">01</div>
           <div>
-            <h3>Conversamos</h3>
-            <p>Dinko conversa contigo sobre tu negocio, tus clientes y lo que necesitas resolver. Sin formularios largos — una conversación real, por WhatsApp o cara a cara.</p>
+            <h3 data-i18n="step1Title">Conversamos</h3>
+            <p data-i18n="step1Desc">Dinko conversa contigo sobre tu negocio, tus clientes y lo que necesitas resolver. Sin formularios largos — una conversación real, por WhatsApp o cara a cara.</p>
           </div>
         </div>
         <div class="step" data-reveal style="--d:100ms;">
           <div class="step-num">02</div>
           <div>
-            <h3>Proponemos</h3>
-            <p>Te mostramos una dirección visual concreta — colores, tipografía, estructura — antes de construir nada, para que apruebes el rumbo desde el principio.</p>
+            <h3 data-i18n="step2Title">Proponemos</h3>
+            <p data-i18n="step2Desc">Te mostramos una dirección visual concreta — colores, tipografía, estructura — antes de construir nada, para que apruebes el rumbo desde el principio.</p>
           </div>
         </div>
         <div class="step" data-reveal style="--d:200ms;">
           <div class="step-num">03</div>
           <div>
-            <h3>Construimos</h3>
-            <p>Benjamín desarrolla el sitio completo, optimizado para verse bien en el celular, que es donde la mayoría de tus clientes te van a encontrar.</p>
+            <h3 data-i18n="step3Title">Construimos</h3>
+            <p data-i18n="step3Desc">Benjamín desarrolla el sitio completo, optimizado para verse bien en el celular, que es donde la mayoría de tus clientes te van a encontrar.</p>
           </div>
         </div>
         <div class="step" data-reveal style="--d:300ms;">
           <div class="step-num">04</div>
           <div>
-            <h3>Publicamos y acompañamos</h3>
-            <p>Dejamos el sitio en línea y seguimos disponibles después de la entrega — Dinko recibe tus pedidos de cambio y los aplicamos directamente.</p>
+            <h3 data-i18n="step4Title">Publicamos y acompañamos</h3>
+            <p data-i18n="step4Desc">Dejamos el sitio en línea y seguimos disponibles después de la entrega — Dinko recibe tus pedidos de cambio y los aplicamos directamente.</p>
           </div>
         </div>
       </div>
@@ -526,25 +542,25 @@
   <section>
     <div class="wrap">
       <div class="section-head" data-reveal>
-        <span class="eyebrow">Por qué duna.web</span>
-        <h2>Lo que nos diferencia.</h2>
+        <span class="eyebrow" data-i18n="whyEyebrow">Por qué duna.web</span>
+        <h2 data-i18n="whyTitle">Lo que nos diferencia.</h2>
       </div>
       <div class="why-grid">
         <div class="why-item" data-reveal style="--d:0ms;">
           <span class="why-mark">—</span>
-          <div><h3>Hecho a mano, no en serie</h3><p>Cada sitio se diseña desde cero para el negocio que lo pidió. Nada de plantillas con el logo cambiado.</p></div>
+          <div><h3 data-i18n="why1Title">Hecho a mano, no en serie</h3><p data-i18n="why1Desc">Cada sitio se diseña desde cero para el negocio que lo pidió. Nada de plantillas con el logo cambiado.</p></div>
         </div>
         <div class="why-item" data-reveal style="--d:80ms;">
           <span class="why-mark">—</span>
-          <div><h3>Precios claros</h3><p>Un rango de valores simple y una mantención mensual accesible. Sin letra chica ni cobros sorpresa.</p></div>
+          <div><h3 data-i18n="why2Title">Precios claros</h3><p data-i18n="why2Desc">Un rango de valores simple y una mantención mensual accesible. Sin letra chica ni cobros sorpresa.</p></div>
         </div>
         <div class="why-item" data-reveal style="--d:160ms;">
           <span class="why-mark">—</span>
-          <div><h3>Base local</h3><p>Somos de Calama y entendemos el mercado del norte de Chile — no una agencia remota que nunca pisó la región.</p></div>
+          <div><h3 data-i18n="why3Title">Base local</h3><p data-i18n="why3Desc">Somos de Calama y entendemos el mercado del norte de Chile — no una agencia remota que nunca pisó la región.</p></div>
         </div>
         <div class="why-item" data-reveal style="--d:240ms;">
           <span class="why-mark">—</span>
-          <div><h3>Soporte real</h3><p>Dinko responde directamente por WhatsApp. No hay tickets, formularios ni esperas de días.</p></div>
+          <div><h3 data-i18n="why4Title">Soporte real</h3><p data-i18n="why4Desc">Dinko responde directamente por WhatsApp. No hay tickets, formularios ni esperas de días.</p></div>
         </div>
       </div>
     </div>
@@ -554,24 +570,24 @@
   <section id="precios" class="panel-alt">
     <div class="wrap">
       <div class="section-head" data-reveal>
-        <span class="eyebrow">Inversión</span>
-        <h2>Variable, según lo que necesite tu negocio.</h2>
+        <span class="eyebrow" data-i18n="pricingEyebrow">Inversión</span>
+        <h2 data-i18n="pricingTitle">Variable, según lo que necesite tu negocio.</h2>
       </div>
       <div class="price-card" data-reveal="scale">
         <div class="price-info">
-          <h3>Cada proyecto tiene su propio precio.</h3>
-          <p>Incluye diseño a medida, desarrollo, optimización para celular y publicación en línea. El valor final depende del tamaño y complejidad del sitio — Dinko conversa contigo y te da un número exacto.</p>
+          <h3 data-i18n="pricingInfoTitle">Cada proyecto tiene su propio precio.</h3>
+          <p data-i18n="pricingInfoDesc">Incluye diseño a medida, desarrollo, optimización para celular y publicación en línea. El valor final depende del tamaño y complejidad del sitio — Dinko conversa contigo y te da un número exacto.</p>
         </div>
         <div class="price-figures">
           <div class="figure">
-            <div class="label">Sitio web</div>
-            <div class="amount">$<span class="count" data-target="90000">0</span>&ndash;<span class="count" data-target="180000">0</span> <span class="unit">CLP</span></div>
+            <div class="label" data-i18n="labelSitio">Sitio web</div>
+            <div class="amount">$<span class="count" data-target="90000">0</span>&ndash;<span class="count" data-target="180000">0</span> <span class="unit" data-i18n="unitCLP">CLP</span></div>
           </div>
           <div class="figure">
-            <div class="label">Mantención</div>
-            <div class="amount">$<span class="count" data-target="25000">0</span>&ndash;<span class="count" data-target="40000">0</span> <span class="unit">CLP / mes</span></div>
+            <div class="label" data-i18n="labelMantencion">Mantención</div>
+            <div class="amount">$<span class="count" data-target="25000">0</span>&ndash;<span class="count" data-target="40000">0</span> <span class="unit" data-i18n="unitCLPMes">CLP / mes</span></div>
           </div>
-          <p class="price-note">Rango referencial — el valor exacto se conversa según tu proyecto.</p>
+          <p class="price-note" data-i18n="priceNote">Rango referencial — el valor exacto se conversa según tu proyecto.</p>
         </div>
       </div>
     </div>
@@ -590,17 +606,17 @@
       <circle class="node" cx="180" cy="160" r="2.4" style="--nd:480ms;"/>
     </svg>
     <div class="wrap contact-inner">
-      <span class="eyebrow" data-reveal>Hablemos</span>
-      <h2 data-reveal style="--d:80ms;">¿Listo para tener un sitio de verdad?</h2>
-      <p class="lead" data-reveal style="--d:160ms;">Cuéntanos sobre tu negocio y te respondemos con una propuesta concreta — sin vueltas.</p>
+      <span class="eyebrow" data-reveal data-i18n="contactEyebrow">Hablemos</span>
+      <h2 data-reveal style="--d:80ms;" data-i18n="contactTitle">¿Listo para tener un sitio de verdad?</h2>
+      <p class="lead" data-reveal style="--d:160ms;" data-i18n="contactLead">Cuéntanos sobre tu negocio y te respondemos con una propuesta concreta — sin vueltas.</p>
       <div class="contact-actions" data-reveal style="--d:240ms;">
-        <a class="btn btn-dark" href="https://wa.me/56920156174" target="_blank" rel="noopener">Escribir por WhatsApp</a>
-        <a class="btn btn-dark-outline" href="https://instagram.com/dunaweb" target="_blank" rel="noopener">Ver Instagram</a>
+        <a class="btn btn-dark" href="https://wa.me/56920156174" target="_blank" rel="noopener" data-i18n="btnWhatsapp2">Escribir por WhatsApp</a>
+        <a class="btn btn-dark-outline" href="https://instagram.com/dunaweb" target="_blank" rel="noopener" data-i18n="btnInstagram">Ver Instagram</a>
       </div>
       <div class="contact-meta" data-reveal style="--d:320ms;">
         <div><strong>WhatsApp</strong>+56 9 2015 6174</div>
         <div><strong>Instagram</strong>@dunaweb</div>
-        <div><strong>Ubicación</strong>Calama, Chile</div>
+        <div><strong data-i18n="labelUbicacion">Ubicación</strong>Calama, Chile</div>
       </div>
     </div>
   </section>
@@ -610,7 +626,7 @@
 <footer>
   <div class="wrap footer-inner">
     <div class="logo">duna<span style="color:var(--accent);">.</span>web</div>
-    <div>&copy;&nbsp;2026 duna.web — Presencia digital para negocios reales.</div>
+    <div data-i18n="footerTagline">&copy;&nbsp;2026 duna.web — Presencia digital para negocios reales.</div>
   </div>
 </footer>
 
@@ -620,6 +636,180 @@
 
 <script>
 (function(){
+  // ============ TRANSLATIONS ============
+  var translations = {
+    es: {
+      navNosotros:"Nosotros", navServicios:"Servicios", navProceso:"Proceso", navPrecios:"Precios", navCta:"Cotizar",
+      heroEyebrow:"Diseño & desarrollo web · Calama, Chile",
+      heroTitle:"Presencia digital<br>para <span class=\"accent\">negocios reales</span>.",
+      slogan0:"Sitios que se ven, no que se esconden.", slogan1:"Tu negocio, en línea, de verdad.",
+      slogan2:"Diseño de Calama para el norte de Chile.", slogan3:"Nada de plantillas. Todo a medida.",
+      btnWhatsapp:"Escríbenos por WhatsApp", btnServicios:"Ver qué hacemos",
+      aboutEyebrow:"Quiénes somos", aboutTitle:"Dos fundadores, un mismo objetivo.",
+      aboutP1:"duna.web nació en Calama con una idea simple: los negocios locales — talleres, tiendas, restaurantes, prestadores de servicios — merecen una presencia en línea tan seria como la de cualquier empresa grande, sin pagar precios de agencia grande ni esperar meses por un resultado genérico.",
+      aboutP2:"Nos dividimos el trabajo para que cada parte del proceso quede en las mejores manos: uno construye, el otro acompaña. Así cada cliente tiene siempre a alguien disponible, ya sea para una duda técnica o una conversación cara a cara.",
+      aboutP3:"Como el desierto que nos rodea, creemos que una buena presencia digital no debería ser un privilegio de unos pocos.",
+      cofounder:"Cofundador",
+      benjaminDesc:"Construye cada sitio de principio a fin — desde la primera idea hasta la versión publicada — dándole forma a cada detalle hasta que queda listo para salir en línea.",
+      dinkoDesc:"Es la cara visible ante el cliente: conversa cara a cara, explica el proceso, conversa el presupuesto y aplica los ajustes que cada cliente pide sobre la marcha.",
+      servicesEyebrow:"Qué hacemos", servicesTitle:"Cuatro formas de estar en línea, bien hechas.",
+      servicesP:"Elegimos el formato según lo que tu negocio realmente necesita — no según lo que sea más fácil de vender.",
+      flipHint:"Haz clic en cada tarjeta para darla vuelta y ver el detalle.",
+      svc01Title:"Páginas web corporativas", svc01Desc:"El sitio principal de tu negocio: quiénes son, qué ofrecen, cómo contactarlos. Diseñado para transmitir confianza desde el primer segundo.", aria01:"Páginas web corporativas — haz clic para ver el detalle",
+      svc02Title:"Landing pages", svc02Desc:"Una página enfocada en un solo objetivo — vender un producto, captar una reserva, promocionar un lanzamiento. Rápida y directa.", aria02:"Landing pages — haz clic para ver el detalle",
+      svc03Title:"Menús digitales", svc03Desc:"Para restaurantes y cafeterías: un menú accesible por QR, fácil de actualizar y siempre al día, sin reimprimir nada.", aria03:"Menús digitales — haz clic para ver el detalle",
+      svc04Title:"Mantención mensual", svc04Desc:"Actualizamos contenido, revisamos que todo funcione y aplicamos los cambios que necesites. Tu sitio no se abandona después de la entrega.", aria04:"Mantención mensual — haz clic para ver el detalle",
+      svc05Title:"Identidad visual", svc05Desc:"Cuando un negocio no tiene una marca definida, ayudamos a construir una — colores, tipografía y tono — antes de construir el sitio.", aria05:"Identidad visual — haz clic para ver el detalle",
+      svc06Title:"Acompañamiento", svc06Desc:"Explicamos cada decisión en lenguaje simple. No necesitas saber de tecnología para trabajar con nosotros.", aria06:"Acompañamiento — haz clic para ver el detalle",
+      flipTap:"Toca para ver más ↻",
+      processEyebrow:"Cómo trabajamos", processTitle:"De la primera conversación al sitio publicado.",
+      step1Title:"Conversamos", step1Desc:"Dinko conversa contigo sobre tu negocio, tus clientes y lo que necesitas resolver. Sin formularios largos — una conversación real, por WhatsApp o cara a cara.",
+      step2Title:"Proponemos", step2Desc:"Te mostramos una dirección visual concreta — colores, tipografía, estructura — antes de construir nada, para que apruebes el rumbo desde el principio.",
+      step3Title:"Construimos", step3Desc:"Benjamín desarrolla el sitio completo, optimizado para verse bien en el celular, que es donde la mayoría de tus clientes te van a encontrar.",
+      step4Title:"Publicamos y acompañamos", step4Desc:"Dejamos el sitio en línea y seguimos disponibles después de la entrega — Dinko recibe tus pedidos de cambio y los aplicamos directamente.",
+      whyEyebrow:"Por qué duna.web", whyTitle:"Lo que nos diferencia.",
+      why1Title:"Hecho a mano, no en serie", why1Desc:"Cada sitio se diseña desde cero para el negocio que lo pidió. Nada de plantillas con el logo cambiado.",
+      why2Title:"Precios claros", why2Desc:"Un rango de valores simple y una mantención mensual accesible. Sin letra chica ni cobros sorpresa.",
+      why3Title:"Base local", why3Desc:"Somos de Calama y entendemos el mercado del norte de Chile — no una agencia remota que nunca pisó la región.",
+      why4Title:"Soporte real", why4Desc:"Dinko responde directamente por WhatsApp. No hay tickets, formularios ni esperas de días.",
+      pricingEyebrow:"Inversión", pricingTitle:"Variable, según lo que necesite tu negocio.",
+      pricingInfoTitle:"Cada proyecto tiene su propio precio.",
+      pricingInfoDesc:"Incluye diseño a medida, desarrollo, optimización para celular y publicación en línea. El valor final depende del tamaño y complejidad del sitio — Dinko conversa contigo y te da un número exacto.",
+      labelSitio:"Sitio web", unitCLP:"CLP", labelMantencion:"Mantención", unitCLPMes:"CLP / mes",
+      priceNote:"Rango referencial — el valor exacto se conversa según tu proyecto.",
+      contactEyebrow:"Hablemos", contactTitle:"¿Listo para tener un sitio de verdad?",
+      contactLead:"Cuéntanos sobre tu negocio y te respondemos con una propuesta concreta — sin vueltas.",
+      btnWhatsapp2:"Escribir por WhatsApp", btnInstagram:"Ver Instagram", labelUbicacion:"Ubicación",
+      footerTagline:"© 2026 duna.web — Presencia digital para negocios reales.",
+      waFloatAria:"Escribir por WhatsApp"
+    },
+    fr: {
+      navNosotros:"À propos", navServicios:"Services", navProceso:"Processus", navPrecios:"Tarifs", navCta:"Devis",
+      heroEyebrow:"Design & développement web · Calama, Chili",
+      heroTitle:"Une présence numérique<br>pour <span class=\"accent\">de vraies entreprises</span>.",
+      slogan0:"Des sites qui se voient, pas qui se cachent.", slogan1:"Votre entreprise, en ligne, pour de vrai.",
+      slogan2:"Un design de Calama pour le nord du Chili.", slogan3:"Pas de modèles. Tout sur mesure.",
+      btnWhatsapp:"Écrivez-nous sur WhatsApp", btnServicios:"Voir ce qu'on fait",
+      aboutEyebrow:"Qui sommes-nous", aboutTitle:"Deux fondateurs, un seul objectif.",
+      aboutP1:"duna.web est née à Calama avec une idée simple : les commerces locaux — ateliers, magasins, restaurants, prestataires de services — méritent une présence en ligne aussi sérieuse que celle d'une grande entreprise, sans payer les tarifs d'une grande agence ni attendre des mois pour un résultat générique.",
+      aboutP2:"Nous nous répartissons le travail pour que chaque étape soit entre de bonnes mains : l'un construit, l'autre accompagne. Ainsi, chaque client a toujours quelqu'un de disponible, que ce soit pour une question technique ou une conversation en face à face.",
+      aboutP3:"Comme le désert qui nous entoure, nous pensons qu'une bonne présence numérique ne devrait pas être un privilège réservé à quelques-uns.",
+      cofounder:"Cofondateur",
+      benjaminDesc:"Construit chaque site de A à Z — de la première idée jusqu'à la version publiée — en façonnant chaque détail jusqu'à ce qu'il soit prêt à être mis en ligne.",
+      dinkoDesc:"C'est le visage visible auprès du client : il échange en personne, explique le processus, discute du budget et applique les ajustements demandés au fil du projet.",
+      servicesEyebrow:"Ce que nous faisons", servicesTitle:"Quatre façons d'être en ligne, bien faites.",
+      servicesP:"Nous choisissons le format selon ce dont votre entreprise a vraiment besoin — pas selon ce qui est le plus facile à vendre.",
+      flipHint:"Cliquez sur chaque carte pour la retourner et voir le détail.",
+      svc01Title:"Sites web d'entreprise", svc01Desc:"Le site principal de votre entreprise : qui vous êtes, ce que vous proposez, comment vous contacter. Conçu pour inspirer confiance dès les premières secondes.", aria01:"Sites web d'entreprise — cliquez pour voir le détail",
+      svc02Title:"Pages de destination", svc02Desc:"Une page centrée sur un seul objectif — vendre un produit, capter une réservation, promouvoir un lancement. Rapide et directe.", aria02:"Pages de destination — cliquez pour voir le détail",
+      svc03Title:"Menus numériques", svc03Desc:"Pour restaurants et cafés : un menu accessible par QR code, facile à mettre à jour et toujours actuel, sans jamais réimprimer.", aria03:"Menus numériques — cliquez pour voir le détail",
+      svc04Title:"Maintenance mensuelle", svc04Desc:"Nous mettons à jour le contenu, vérifions que tout fonctionne et appliquons les changements nécessaires. Votre site n'est pas abandonné après la livraison.", aria04:"Maintenance mensuelle — cliquez pour voir le détail",
+      svc05Title:"Identité visuelle", svc05Desc:"Quand une entreprise n'a pas encore de marque définie, nous l'aidons à en créer une — couleurs, typographie et ton — avant de construire le site.", aria05:"Identité visuelle — cliquez pour voir le détail",
+      svc06Title:"Accompagnement", svc06Desc:"Nous expliquons chaque décision en langage simple. Pas besoin de connaître la technologie pour travailler avec nous.", aria06:"Accompagnement — cliquez pour voir le détail",
+      flipTap:"Touchez pour en voir plus ↻",
+      processEyebrow:"Comment nous travaillons", processTitle:"De la première conversation au site publié.",
+      step1Title:"On discute", step1Desc:"Dinko échange avec vous sur votre entreprise, vos clients et ce que vous devez résoudre. Pas de longs formulaires — une vraie conversation, par WhatsApp ou en personne.",
+      step2Title:"On propose", step2Desc:"Nous vous montrons une direction visuelle concrète — couleurs, typographie, structure — avant de construire quoi que ce soit, pour que vous validiez l'orientation dès le départ.",
+      step3Title:"On construit", step3Desc:"Benjamín développe le site complet, optimisé pour bien s'afficher sur mobile, là où la plupart de vos clients vous trouveront.",
+      step4Title:"On publie et on accompagne", step4Desc:"Nous mettons le site en ligne et restons disponibles après la livraison — Dinko reçoit vos demandes de modification et nous les appliquons directement.",
+      whyEyebrow:"Pourquoi duna.web", whyTitle:"Ce qui nous différencie.",
+      why1Title:"Fait main, pas en série", why1Desc:"Chaque site est conçu de zéro pour l'entreprise qui l'a demandé. Aucun modèle avec le logo changé.",
+      why2Title:"Des tarifs clairs", why2Desc:"Une fourchette de prix simple et une maintenance mensuelle accessible. Sans petites lignes ni frais surprises.",
+      why3Title:"Ancrage local", why3Desc:"Nous sommes de Calama et connaissons le marché du nord du Chili — pas une agence à distance qui n'a jamais mis les pieds dans la région.",
+      why4Title:"Un vrai support", why4Desc:"Dinko répond directement sur WhatsApp. Pas de tickets, pas de formulaires, pas d'attente de plusieurs jours.",
+      pricingEyebrow:"Investissement", pricingTitle:"Variable, selon les besoins de votre entreprise.",
+      pricingInfoTitle:"Chaque projet a son propre prix.",
+      pricingInfoDesc:"Inclut un design sur mesure, le développement, l'optimisation mobile et la mise en ligne. Le prix final dépend de la taille et de la complexité du site — Dinko en discute avec vous et vous donne un chiffre exact.",
+      labelSitio:"Site web", unitCLP:"CLP", labelMantencion:"Maintenance", unitCLPMes:"CLP / mois",
+      priceNote:"Fourchette indicative — le montant exact se discute selon votre projet.",
+      contactEyebrow:"Parlons-en", contactTitle:"Prêt à avoir un vrai site web ?",
+      contactLead:"Parlez-nous de votre entreprise et nous vous répondrons avec une proposition concrète — sans détour.",
+      btnWhatsapp2:"Écrire sur WhatsApp", btnInstagram:"Voir Instagram", labelUbicacion:"Emplacement",
+      footerTagline:"© 2026 duna.web — Une présence numérique pour de vraies entreprises.",
+      waFloatAria:"Écrire sur WhatsApp"
+    },
+    en: {
+      navNosotros:"About", navServicios:"Services", navProceso:"Process", navPrecios:"Pricing", navCta:"Get a quote",
+      heroEyebrow:"Web design & development · Calama, Chile",
+      heroTitle:"Digital presence<br>for <span class=\"accent\">real businesses</span>.",
+      slogan0:"Sites that show up, not hide away.", slogan1:"Your business, online, for real.",
+      slogan2:"Design from Calama for northern Chile.", slogan3:"No templates. Everything custom-built.",
+      btnWhatsapp:"Message us on WhatsApp", btnServicios:"See what we do",
+      aboutEyebrow:"Who we are", aboutTitle:"Two founders, one goal.",
+      aboutP1:"duna.web was born in Calama with a simple idea: local businesses — workshops, shops, restaurants, service providers — deserve an online presence as serious as any big company's, without paying big-agency prices or waiting months for a generic result.",
+      aboutP2:"We split the work so every part of the process is in the right hands: one builds, the other supports. That way every client always has someone available, whether for a technical question or a face-to-face conversation.",
+      aboutP3:"Like the desert around us, we believe a good digital presence shouldn't be a privilege for the few.",
+      cofounder:"Co-founder",
+      benjaminDesc:"Builds every site from start to finish — from the first idea to the published version — shaping every detail until it's ready to go live.",
+      dinkoDesc:"He's the face clients see: he talks in person, explains the process, discusses budget, and applies the changes each client asks for along the way.",
+      servicesEyebrow:"What we do", servicesTitle:"Four ways to be online, done right.",
+      servicesP:"We choose the format based on what your business actually needs — not on what's easiest to sell.",
+      flipHint:"Click each card to flip it and see the detail.",
+      svc01Title:"Corporate websites", svc01Desc:"Your business's main site: who you are, what you offer, how to reach you. Designed to build trust from the first second.", aria01:"Corporate websites — click to see the detail",
+      svc02Title:"Landing pages", svc02Desc:"A page focused on a single goal — selling a product, capturing a booking, promoting a launch. Fast and direct.", aria02:"Landing pages — click to see the detail",
+      svc03Title:"Digital menus", svc03Desc:"For restaurants and cafés: a QR-accessible menu, easy to update and always current, with no reprinting.", aria03:"Digital menus — click to see the detail",
+      svc04Title:"Monthly maintenance", svc04Desc:"We update content, check that everything works, and apply the changes you need. Your site isn't abandoned after launch.", aria04:"Monthly maintenance — click to see the detail",
+      svc05Title:"Visual identity", svc05Desc:"When a business doesn't have a defined brand yet, we help build one — colors, typography, and tone — before building the site.", aria05:"Visual identity — click to see the detail",
+      svc06Title:"Ongoing support", svc06Desc:"We explain every decision in plain language. You don't need to know tech to work with us.", aria06:"Ongoing support — click to see the detail",
+      flipTap:"Tap to see more ↻",
+      processEyebrow:"How we work", processTitle:"From the first conversation to a live site.",
+      step1Title:"We talk", step1Desc:"Dinko talks with you about your business, your customers, and what you need to solve. No long forms — a real conversation, over WhatsApp or in person.",
+      step2Title:"We propose", step2Desc:"We show you a concrete visual direction — colors, typography, structure — before building anything, so you approve the direction from the start.",
+      step3Title:"We build", step3Desc:"Benjamín develops the full site, optimized to look good on mobile, where most of your customers will find you.",
+      step4Title:"We launch and support", step4Desc:"We put the site live and stay available after delivery — Dinko takes your change requests and we apply them directly.",
+      whyEyebrow:"Why duna.web", whyTitle:"What sets us apart.",
+      why1Title:"Handmade, not mass-produced", why1Desc:"Every site is designed from scratch for the business that requested it. No templates with a swapped logo.",
+      why2Title:"Clear pricing", why2Desc:"A simple price range and an affordable monthly maintenance fee. No fine print, no surprise charges.",
+      why3Title:"Local roots", why3Desc:"We're based in Calama and understand the northern Chile market — not a remote agency that's never set foot in the region.",
+      why4Title:"Real support", why4Desc:"Dinko answers directly on WhatsApp. No tickets, no forms, no days-long waits.",
+      pricingEyebrow:"Investment", pricingTitle:"Variable, based on what your business needs.",
+      pricingInfoTitle:"Every project has its own price.",
+      pricingInfoDesc:"Includes custom design, development, mobile optimization, and going live. The final price depends on the site's size and complexity — Dinko discusses it with you and gives you an exact number.",
+      labelSitio:"Website", unitCLP:"CLP", labelMantencion:"Maintenance", unitCLPMes:"CLP / month",
+      priceNote:"Reference range — the exact amount is discussed based on your project.",
+      contactEyebrow:"Let's talk", contactTitle:"Ready for a real website?",
+      contactLead:"Tell us about your business and we'll get back to you with a concrete proposal — no runaround.",
+      btnWhatsapp2:"Message on WhatsApp", btnInstagram:"See Instagram", labelUbicacion:"Location",
+      footerTagline:"© 2026 duna.web — Digital presence for real businesses.",
+      waFloatAria:"Message on WhatsApp"
+    }
+  };
+
+  function applyLanguage(lang){
+    var dict = translations[lang] || translations.es;
+    document.documentElement.lang = lang;
+
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var key = el.getAttribute('data-i18n');
+      if (dict[key] !== undefined) el.textContent = dict[key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el){
+      var key = el.getAttribute('data-i18n-html');
+      if (dict[key] !== undefined) el.innerHTML = dict[key];
+    });
+    document.querySelectorAll('[data-i18n-aria]').forEach(function(el){
+      var key = el.getAttribute('data-i18n-aria');
+      if (dict[key] !== undefined) el.setAttribute('aria-label', dict[key]);
+    });
+    var waFloat = document.querySelector('.wa-float');
+    if (waFloat && dict.waFloatAria) waFloat.setAttribute('aria-label', dict.waFloatAria);
+
+    document.querySelectorAll('.lang-btn').forEach(function(btn){
+      btn.classList.toggle('is-active', btn.getAttribute('data-lang') === lang);
+    });
+
+    try { localStorage.setItem('dunaweb_lang', lang); } catch(e){}
+  }
+
+  var langButtons = document.querySelectorAll('.lang-btn');
+  langButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){ applyLanguage(btn.getAttribute('data-lang')); });
+  });
+
+  var savedLang = null;
+  try { savedLang = localStorage.getItem('dunaweb_lang'); } catch(e){}
+  if (savedLang && translations[savedLang]) applyLanguage(savedLang);
+
   // Remove the load scan-bar from the DOM once its animation finishes
   var scanBar = document.querySelector('.scan-bar');
   if (scanBar){

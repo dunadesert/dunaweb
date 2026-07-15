@@ -141,6 +141,24 @@
   body.dark-mode .theme-toggle .icon-sun{ display:none; }
   body.dark-mode .theme-toggle .icon-moon{ display:block; }
 
+  /* ============ THEME WIPE TRANSITION ============ */
+  .theme-wipe{ position:fixed; inset:0; z-index:500; pointer-events:none; will-change:transform; }
+  @keyframes wipeToDark{
+    0%{ transform:translateX(100%); }
+    45%{ transform:translateX(0%); }
+    55%{ transform:translateX(0%); }
+    100%{ transform:translateX(-100%); }
+  }
+  @keyframes wipeToLight{
+    0%{ transform:translateX(-100%); }
+    45%{ transform:translateX(0%); }
+    55%{ transform:translateX(0%); }
+    100%{ transform:translateX(100%); }
+  }
+  .theme-wipe.to-dark{ animation:wipeToDark .8s cubic-bezier(.65,0,.35,1) forwards; }
+  .theme-wipe.to-light{ animation:wipeToLight .8s cubic-bezier(.65,0,.35,1) forwards; }
+  @media (prefers-reduced-motion: reduce){ .theme-wipe{ display:none; } }
+
   /* ============ SCROLL PROGRESS ============ */
   .scroll-progress{
     position:fixed; top:0; left:0; height:2.5px; width:0%; background:var(--accent);
@@ -1281,17 +1299,29 @@
   // Remove the load scan-bar from the DOM once its animation finishes
   // Theme toggle (dark/light), persisted
   var themeBtn = document.getElementById('theme-toggle');
+  var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function setTheme(isDark){
     document.body.classList.toggle('dark-mode', isDark);
     if (themeBtn) themeBtn.setAttribute('aria-label', isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
     try { localStorage.setItem('dunaweb_theme', isDark ? 'dark' : 'light'); } catch(e){}
+  }
+  function switchThemeWithWipe(isDark){
+    if (prefersReducedMotion){ setTheme(isDark); return; }
+    var wipe = document.createElement('div');
+    wipe.className = 'theme-wipe ' + (isDark ? 'to-dark' : 'to-light');
+    wipe.style.background = isDark ? '#14110C' : '#F6F0E4';
+    document.body.appendChild(wipe);
+    // Swap the actual theme while the wipe fully covers the screen (~halfway through)
+    setTimeout(function(){ setTheme(isDark); }, 400);
+    wipe.addEventListener('animationend', function(){ wipe.remove(); });
+    setTimeout(function(){ if (wipe.parentNode) wipe.remove(); }, 900);
   }
   var savedTheme = null;
   try { savedTheme = localStorage.getItem('dunaweb_theme'); } catch(e){}
   if (savedTheme === 'dark') setTheme(true);
   if (themeBtn){
     themeBtn.addEventListener('click', function(){
-      setTheme(!document.body.classList.contains('dark-mode'));
+      switchThemeWithWipe(!document.body.classList.contains('dark-mode'));
     });
   }
 

@@ -20,9 +20,25 @@
     --dark: #0A0A0A;
     --dark-line: rgba(246,240,228,0.14);
     --cream: #FBF7EE;
+    --card-bg: #FBF7EE;
     --display: 'Orbitron', 'Manrope', sans-serif;
     --sans: 'Manrope', -apple-system, sans-serif;
     --ease: cubic-bezier(.22,.61,.36,1);
+  }
+
+  body.dark-mode{
+    --bg: #14110C;
+    --bg-alt: #1E1913;
+    --ink: #F3ECDE;
+    --ink-soft: #A79A85;
+    --line: rgba(243,236,222,0.14);
+    --card-bg: #201A12;
+  }
+  body.dark-mode header.nav{ background:rgba(20,17,12,0.92); }
+  body.dark-mode .hero-grid{
+    background-image:
+      linear-gradient(to right, rgba(243,236,222,0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(243,236,222,0.06) 1px, transparent 1px);
   }
 
   *{ margin:0; padding:0; box-sizing:border-box; }
@@ -112,6 +128,24 @@
   .lang-btn:hover{ color:var(--ink); }
   .lang-btn.is-active{ background:var(--ink); color:var(--bg); }
   @media (max-width:480px){ .lang-switch{ margin-right:10px; } .lang-btn{ padding:6px 7px; } }
+
+  /* ============ THEME TOGGLE ============ */
+  .theme-toggle{
+    width:34px; height:34px; margin-right:14px; border:1px solid var(--line); background:transparent;
+    display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--ink);
+    transition:border-color .2s ease, color .2s ease;
+  }
+  .theme-toggle:hover{ border-color:var(--accent); color:var(--accent); }
+  .theme-toggle svg{ width:16px; height:16px; }
+  .theme-toggle .icon-moon{ display:none; }
+  body.dark-mode .theme-toggle .icon-sun{ display:none; }
+  body.dark-mode .theme-toggle .icon-moon{ display:block; }
+
+  /* ============ SCROLL PROGRESS ============ */
+  .scroll-progress{
+    position:fixed; top:0; left:0; height:2.5px; width:0%; background:var(--accent);
+    z-index:150; transition:width .08s linear;
+  }
 
   /* ============ HERO ============ */
   .hero{ position:relative; padding:180px 0 120px; overflow:hidden; }
@@ -213,7 +247,7 @@
   .about-copy p:last-child{ margin-bottom:0; }
   .founders{ display:grid; gap:16px; }
   .founder{
-    padding:28px; background:var(--cream); border:1px solid var(--line);
+    padding:28px; background:var(--card-bg); border:1px solid var(--line);
     clip-path:polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
     transition:border-color .3s ease, transform .3s ease;
   }
@@ -233,7 +267,7 @@
   .flip-face{
     position:absolute; inset:0; backface-visibility:hidden; -webkit-backface-visibility:hidden;
     padding:28px; display:flex; flex-direction:column;
-    border:1px solid var(--line); background:var(--cream);
+    border:1px solid var(--line); background:var(--card-bg);
     clip-path:polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
   }
   .flip-card:hover .flip-face{ border-color:rgba(185,138,101,0.4); }
@@ -285,9 +319,112 @@
   .figure .amount .count{ display:inline-block; min-width:3.2ch; text-align:right; color:var(--accent); }
   .figure .amount .unit{ font-family:var(--sans); font-size:12.5px; color:rgba(246,240,228,0.55); font-weight:400; }
   .price-note{ margin-top:24px; font-size:12px; color:rgba(246,240,228,0.55); }
+
+  /* ============ CURRENCY SWITCH ============ */
+  .currency-switch{ display:inline-flex; gap:2px; border:1px solid var(--line); padding:3px; margin:20px 0 10px; }
+  .currency-btn{
+    font-family:var(--sans); font-size:11px; font-weight:700; letter-spacing:0.03em;
+    padding:6px 12px; background:transparent; color:var(--ink-soft); border:none; cursor:pointer;
+    transition:background .2s ease, color .2s ease;
+  }
+  .currency-btn:hover{ color:var(--ink); }
+  .currency-btn.is-active{ background:var(--ink); color:var(--bg); }
+  .currency-note{ font-size:12px; color:var(--ink-soft); font-style:italic; margin-top:0; }
+  .unit-usd{ display:none; }
+  body.currency-usd .unit-clp{ display:none; }
+  body.currency-usd .unit-usd{ display:inline; }
   @media (max-width:820px){ .price-card{ grid-template-columns:1fr; } }
 
   /* ============ CONTACTO ============ */
+  /* ============ FAQ ============ */
+  .faq-list{ border-top:1px solid var(--line); max-width:800px; }
+  .faq-item{ border-bottom:1px solid var(--line); }
+  .faq-question{
+    width:100%; display:flex; align-items:center; justify-content:space-between; gap:20px;
+    background:none; border:none; text-align:left; cursor:pointer;
+    padding:24px 4px; font-family:var(--sans); font-size:16px; font-weight:600; color:var(--ink);
+  }
+  .faq-question:hover{ color:var(--accent); }
+  .faq-icon{
+    flex-shrink:0; width:20px; height:20px; position:relative;
+  }
+  .faq-icon::before, .faq-icon::after{
+    content:""; position:absolute; top:50%; left:50%; background:var(--accent);
+    transform:translate(-50%,-50%); transition:transform .3s var(--ease);
+  }
+  .faq-icon::before{ width:14px; height:1.5px; }
+  .faq-icon::after{ width:1.5px; height:14px; }
+  .faq-item.is-open .faq-icon::after{ transform:translate(-50%,-50%) rotate(90deg); opacity:0; }
+  .faq-answer{
+    max-height:0; overflow:hidden; transition:max-height .4s var(--ease);
+  }
+  .faq-answer-inner{ padding:0 4px 24px; }
+  .faq-answer p{ font-size:15px; max-width:64ch; }
+  .faq-note{ font-size:13px; color:var(--ink-soft); font-style:italic; margin:-38px 0 34px; }
+
+  /* ============ CHECKLIST ============ */
+  .checklist{ display:grid; grid-template-columns:repeat(2, 1fr); gap:20px 40px; max-width:900px; }
+  .check-item{ display:flex; align-items:center; gap:16px; font-size:15.5px; color:var(--ink); }
+  .check-mark{
+    flex-shrink:0; width:28px; height:28px; border:1px solid var(--accent);
+    display:flex; align-items:center; justify-content:center;
+    clip-path:polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px));
+  }
+  .check-mark svg{ width:15px; height:15px; fill:none; stroke:var(--accent); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+  .check-mark polyline{ stroke-dasharray:24; stroke-dashoffset:24; transition:stroke-dashoffset .5s var(--ease) .15s; }
+  .check-item.is-visible .check-mark polyline,
+  [data-reveal].is-visible .check-mark polyline{ stroke-dashoffset:0; }
+  @media (max-width:700px){ .checklist{ grid-template-columns:1fr; } }
+
+  /* ============ HERRAMIENTAS ============ */
+  .tools-grid{ display:grid; grid-template-columns:repeat(4, 1fr); gap:1px; background:var(--line); border:1px solid var(--line); }
+  .tool-item{ background:var(--bg); padding:32px 26px; transition:background .25s ease; }
+  .tool-item:hover{ background:var(--card-bg); }
+  .tool-num{ font-family:var(--display); font-size:13px; color:var(--accent); display:block; margin-bottom:16px; }
+  .tool-item h3{ font-size:17px; margin-bottom:8px; font-family:var(--sans); font-weight:600; }
+  .tool-item p{ font-size:13.5px; max-width:none; }
+  @media (max-width:900px){ .tools-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:520px){ .tools-grid{ grid-template-columns:1fr; } }
+
+  /* ============ COMPARE TABLE ============ */
+  .compare-table{ border:1px solid var(--line); max-width:820px; }
+  .compare-row{ display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; border-bottom:1px solid var(--line); }
+  .compare-row:last-child{ border-bottom:none; }
+  .compare-cell{ padding:16px 14px; font-size:13.5px; text-align:center; color:var(--ink-soft); display:flex; align-items:center; justify-content:center; }
+  .compare-label{ justify-content:flex-start; text-align:left; color:var(--ink); font-weight:500; }
+  .compare-head .compare-cell{ font-size:12px; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-soft); }
+  .compare-col-highlight{ background:var(--accent-dim); color:var(--ink); font-weight:600; }
+  .compare-head .compare-col-highlight{ color:var(--accent); }
+  .compare-cell .yes{ color:var(--accent); font-weight:700; }
+  .compare-cell .no{ color:var(--ink-soft); opacity:0.5; }
+  .compare-cell .maybe{ color:var(--ink-soft); opacity:0.6; }
+  .compare-note{ font-size:12.5px; color:var(--ink-soft); font-style:italic; margin-top:18px; }
+  @media (max-width:640px){ .compare-row{ grid-template-columns:1.3fr 0.9fr 0.9fr 0.9fr; } .compare-cell{ padding:12px 6px; font-size:12px; } }
+
+  /* ============ CALCULATOR ============ */
+  .calc-box{ display:grid; grid-template-columns:1.1fr 1fr; gap:0; border:1px solid var(--line); }
+  .calc-controls{ padding:44px; display:flex; flex-direction:column; gap:28px; }
+  .calc-field label{ display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:10px; }
+  .calc-field label strong{ color:var(--accent); font-weight:700; }
+  .calc-field input[type="range"]{
+    width:100%; -webkit-appearance:none; appearance:none; height:2px; background:var(--line); outline:none;
+  }
+  .calc-field input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance:none; width:16px; height:16px; border-radius:50%; background:var(--accent); cursor:pointer;
+    border:2px solid var(--bg); box-shadow:0 0 0 1px var(--accent);
+  }
+  .calc-field input[type="range"]::-moz-range-thumb{
+    width:14px; height:14px; border-radius:50%; background:var(--accent); cursor:pointer; border:2px solid var(--bg);
+  }
+  .calc-result{ background:var(--dark); color:var(--cream); padding:44px; display:flex; flex-direction:column; justify-content:center; }
+  .calc-result-label{ font-size:12px; letter-spacing:0.06em; text-transform:uppercase; color:rgba(246,240,228,0.55); margin-bottom:10px; }
+  .calc-result-amount{
+    font-family:var(--display); font-weight:400; font-size:38px; color:var(--accent);
+    font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1; margin-bottom:16px;
+  }
+  .calc-note{ font-size:12px; color:rgba(246,240,228,0.5); max-width:none; }
+  @media (max-width:820px){ .calc-box{ grid-template-columns:1fr; } .calc-controls, .calc-result{ padding:32px; } }
+
   .contact{ background:var(--dark); color:var(--cream); text-align:center; padding:126px 0; position:relative; overflow:hidden; }
   .contact .hero-glow{ background:radial-gradient(circle, rgba(185,138,101,0.16) 0%, transparent 65%); }
   .contact-inner{ max-width:600px; margin:0 auto; position:relative; z-index:2; }
@@ -325,6 +462,7 @@
 <body>
 
 <div class="scan-bar" aria-hidden="true"></div>
+<div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
 
 <header class="nav">
   <div class="nav-inner">
@@ -334,7 +472,12 @@
       <a href="#servicios" data-i18n="navServicios">Servicios</a>
       <a href="#proceso" data-i18n="navProceso">Proceso</a>
       <a href="#precios" data-i18n="navPrecios">Precios</a>
+      <a href="#faq" data-i18n="navFaq">FAQ</a>
     </nav>
+    <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Cambiar a modo oscuro">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+    </button>
     <div class="lang-switch" role="group" aria-label="Seleccionar idioma">
       <button type="button" class="lang-btn is-active" data-lang="es">ES</button>
       <button type="button" class="lang-btn" data-lang="fr">FR</button>
@@ -497,8 +640,45 @@
     </div>
   </section>
 
+  <!-- QUÉ INCLUYE -->
+  <section id="incluye" class="panel-alt">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow" data-i18n="includeEyebrow">Qué incluye</span>
+        <h2 data-i18n="includeTitle">Todo lo que se lleva cada proyecto.</h2>
+        <p data-i18n="includeP">Esto no cambia según el paquete — es la base de cualquier sitio que construimos.</p>
+      </div>
+      <div class="checklist">
+        <div class="check-item" data-reveal style="--d:0ms;">
+          <span class="check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="4,13 9,18 20,6"/></svg></span>
+          <span data-i18n="check1">Diseño a medida, sin plantillas genéricas</span>
+        </div>
+        <div class="check-item" data-reveal style="--d:60ms;">
+          <span class="check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="4,13 9,18 20,6"/></svg></span>
+          <span data-i18n="check2">Optimizado para verse bien en el celular</span>
+        </div>
+        <div class="check-item" data-reveal style="--d:120ms;">
+          <span class="check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="4,13 9,18 20,6"/></svg></span>
+          <span data-i18n="check3">Botón de WhatsApp integrado para tus clientes</span>
+        </div>
+        <div class="check-item" data-reveal style="--d:180ms;">
+          <span class="check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="4,13 9,18 20,6"/></svg></span>
+          <span data-i18n="check4">Asesoría en dominio y hosting</span>
+        </div>
+        <div class="check-item" data-reveal style="--d:240ms;">
+          <span class="check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="4,13 9,18 20,6"/></svg></span>
+          <span data-i18n="check5">Publicación del sitio en línea</span>
+        </div>
+        <div class="check-item" data-reveal style="--d:300ms;">
+          <span class="check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><polyline points="4,13 9,18 20,6"/></svg></span>
+          <span data-i18n="check6">Acompañamiento directo por WhatsApp después de la entrega</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- PROCESO -->
-  <section id="proceso" class="panel-alt">
+  <section id="proceso">
     <div class="wrap">
       <div class="section-head" data-reveal>
         <span class="eyebrow" data-i18n="processEyebrow">Cómo trabajamos</span>
@@ -539,7 +719,7 @@
   </section>
 
   <!-- POR QUÉ -->
-  <section>
+  <section class="panel-alt">
     <div class="wrap">
       <div class="section-head" data-reveal>
         <span class="eyebrow" data-i18n="whyEyebrow">Por qué duna.web</span>
@@ -566,6 +746,114 @@
     </div>
   </section>
 
+  <!-- HERRAMIENTAS -->
+  <section id="herramientas">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow" data-i18n="toolsEyebrow">Nuestras herramientas</span>
+        <h2 data-i18n="toolsTitle">Tecnología moderna, sin vueltas.</h2>
+        <p data-i18n="toolsP">Construimos con herramientas actuales — el foco está en que tu sitio funcione rápido y bien, no en la moda tecnológica.</p>
+      </div>
+      <div class="tools-grid">
+        <div class="tool-item" data-reveal style="--d:0ms;">
+          <span class="tool-num">01</span>
+          <h3 data-i18n="tool1Title">Código a medida</h3>
+          <p data-i18n="tool1Desc">Cada sitio se construye desde cero para ese negocio — no es una plantilla con el logo cambiado.</p>
+        </div>
+        <div class="tool-item" data-reveal style="--d:80ms;">
+          <span class="tool-num">02</span>
+          <h3 data-i18n="tool2Title">Carga rápida</h3>
+          <p data-i18n="tool2Desc">Sitios livianos, pensados para cargar rápido incluso con una conexión de celular promedio.</p>
+        </div>
+        <div class="tool-item" data-reveal style="--d:160ms;">
+          <span class="tool-num">03</span>
+          <h3 data-i18n="tool3Title">Hosting en la nube</h3>
+          <p data-i18n="tool3Desc">Publicación en infraestructura moderna, con buen tiempo de actividad y sin caídas frecuentes.</p>
+        </div>
+        <div class="tool-item" data-reveal style="--d:240ms;">
+          <span class="tool-num">04</span>
+          <h3 data-i18n="tool4Title">Mobile-first</h3>
+          <p data-i18n="tool4Desc">Diseñamos pensando primero en el celular, porque ahí es donde te va a encontrar la mayoría de tus clientes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CÓMO COMPARAMOS -->
+  <section id="comparamos" class="panel-alt">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow" data-i18n="compareEyebrow">Cómo comparamos</span>
+        <h2 data-i18n="compareTitle">Antes de decidir, mira las diferencias.</h2>
+      </div>
+      <div class="compare-table" data-reveal="scale">
+        <div class="compare-row compare-head">
+          <div class="compare-cell compare-label"></div>
+          <div class="compare-cell compare-col-highlight" data-i18n="compareColDuna">duna.web</div>
+          <div class="compare-cell" data-i18n="compareColTemplate">Plantilla gratuita</div>
+          <div class="compare-cell" data-i18n="compareColFreelance">Freelancer suelto</div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell compare-label" data-i18n="compareRow1">Diseño a medida</div>
+          <div class="compare-cell compare-col-highlight"><span class="yes">✓</span></div>
+          <div class="compare-cell"><span class="no">✗</span></div>
+          <div class="compare-cell"><span class="maybe">?</span></div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell compare-label" data-i18n="compareRow2">Soporte después de la entrega</div>
+          <div class="compare-cell compare-col-highlight"><span class="yes">✓</span></div>
+          <div class="compare-cell"><span class="no">✗</span></div>
+          <div class="compare-cell"><span class="maybe">?</span></div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell compare-label" data-i18n="compareRow3">Base local en Calama</div>
+          <div class="compare-cell compare-col-highlight"><span class="yes">✓</span></div>
+          <div class="compare-cell"><span class="no">✗</span></div>
+          <div class="compare-cell"><span class="maybe">?</span></div>
+        </div>
+        <div class="compare-row">
+          <div class="compare-cell compare-label" data-i18n="compareRow4">Precio claro, sin sorpresas</div>
+          <div class="compare-cell compare-col-highlight"><span class="yes">✓</span></div>
+          <div class="compare-cell"><span class="maybe">?</span></div>
+          <div class="compare-cell"><span class="maybe">?</span></div>
+        </div>
+      </div>
+      <p class="compare-note" data-i18n="compareNote">Una comparación general — cada freelancer y cada plantilla es distinta.</p>
+    </div>
+  </section>
+
+  <!-- CALCULADORA -->
+  <section id="calculadora">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow" data-i18n="calcEyebrow">Un cálculo simple</span>
+        <h2 data-i18n="calcTitle">¿Cuánto te podría estar costando no tener sitio?</h2>
+        <p data-i18n="calcP">Mueve los controles según tu negocio — es solo una estimación para pensarlo, no una cifra exacta.</p>
+      </div>
+      <div class="calc-box" data-reveal="scale">
+        <div class="calc-controls">
+          <div class="calc-field">
+            <label for="calc-clients"><span data-i18n="calcLabelClients">Clientes potenciales que buscan tu rubro por semana</span>: <strong id="calc-clients-val">10</strong></label>
+            <input type="range" id="calc-clients" min="1" max="60" value="10" step="1">
+          </div>
+          <div class="calc-field">
+            <label for="calc-value"><span data-i18n="calcLabelValue">Valor promedio de un cliente (CLP)</span>: <strong id="calc-value-val">15.000</strong></label>
+            <input type="range" id="calc-value" min="3000" max="100000" value="15000" step="1000">
+          </div>
+          <div class="calc-field">
+            <label for="calc-rate"><span data-i18n="calcLabelRate">% que se pierde por no tener sitio</span>: <strong id="calc-rate-val">30%</strong></label>
+            <input type="range" id="calc-rate" min="5" max="70" value="30" step="5">
+          </div>
+        </div>
+        <div class="calc-result">
+          <div class="calc-result-label" data-i18n="calcResultLabel">Estimado que podrías estar dejando pasar al mes</div>
+          <div class="calc-result-amount">$<span class="count" id="calc-output">0</span></div>
+          <p class="calc-note" data-i18n="calcNote">Estimación ilustrativa basada en lo que ingreses — no considera todos los factores de tu negocio.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- PRECIOS -->
   <section id="precios" class="panel-alt">
     <div class="wrap">
@@ -577,17 +865,89 @@
         <div class="price-info">
           <h3 data-i18n="pricingInfoTitle">Cada proyecto tiene su propio precio.</h3>
           <p data-i18n="pricingInfoDesc">Incluye diseño a medida, desarrollo, optimización para celular y publicación en línea. El valor final depende del tamaño y complejidad del sitio — Dinko conversa contigo y te da un número exacto.</p>
+          <div class="currency-switch" role="group" aria-label="Seleccionar moneda">
+            <button type="button" class="currency-btn is-active" data-currency="clp">CLP</button>
+            <button type="button" class="currency-btn" data-currency="usd">USD</button>
+          </div>
+          <p class="currency-note" data-i18n="currencyNote">Conversión referencial a dólar — el pago se realiza en pesos chilenos.</p>
         </div>
         <div class="price-figures">
           <div class="figure">
             <div class="label" data-i18n="labelSitio">Sitio web</div>
-            <div class="amount">$<span class="count" data-target="90000">0</span>&ndash;<span class="count" data-target="180000">0</span> <span class="unit" data-i18n="unitCLP">CLP</span></div>
+            <div class="amount"><span class="currency-sign">$</span><span class="count" data-target-clp="90000" data-target-usd="95">0</span>&ndash;<span class="count" data-target-clp="180000" data-target-usd="190">0</span> <span class="unit unit-clp" data-i18n="unitCLP">CLP</span><span class="unit unit-usd" data-i18n="unitUSD">USD</span></div>
           </div>
           <div class="figure">
             <div class="label" data-i18n="labelMantencion">Mantención</div>
-            <div class="amount">$<span class="count" data-target="25000">0</span>&ndash;<span class="count" data-target="40000">0</span> <span class="unit" data-i18n="unitCLPMes">CLP / mes</span></div>
+            <div class="amount"><span class="currency-sign">$</span><span class="count" data-target-clp="25000" data-target-usd="26">0</span>&ndash;<span class="count" data-target-clp="40000" data-target-usd="42">0</span> <span class="unit unit-clp" data-i18n="unitCLPMes">CLP / mes</span><span class="unit unit-usd" data-i18n="unitUSDMes">USD / mes</span></div>
           </div>
           <p class="price-note" data-i18n="priceNote">Rango referencial — el valor exacto se conversa según tu proyecto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PREGUNTAS FRECUENTES -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow" data-i18n="faqEyebrow">Preguntas frecuentes</span>
+        <h2 data-i18n="faqTitle">Antes de escribirnos.</h2>
+      </div>
+      <p class="faq-note" data-reveal style="--d:60ms;" data-i18n="faqNote">Haz clic en cada pregunta para ver la respuesta.</p>
+      <div class="faq-list" data-reveal="scale">
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            <span data-i18n="faq1Q">¿Cuánto se demora en estar listo mi sitio?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner"><p data-i18n="faq1A">Depende del tamaño del proyecto — una landing page simple toma menos tiempo que un sitio corporativo completo. Dinko te da un plazo estimado apenas conversan sobre tu proyecto.</p></div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            <span data-i18n="faq2Q">¿Qué necesito para empezar?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner"><p data-i18n="faq2A">Solo contarnos sobre tu negocio: a qué te dedicas, qué quieres lograr con el sitio y, si tienes, algún logo o material gráfico ya existente. Si no tienes nada de eso, también podemos ayudarte a construirlo desde cero.</p></div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            <span data-i18n="faq3Q">¿El dominio y el hosting están incluidos?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner"><p data-i18n="faq3A">Te asesoramos en la elección y configuración del dominio y el hosting, y te explicamos las opciones según tu presupuesto. Lo conversamos en detalle antes de empezar, para que sepas exactamente qué incluye tu proyecto.</p></div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            <span data-i18n="faq4Q">¿Puedo pedir cambios después de que el sitio esté publicado?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner"><p data-i18n="faq4A">Sí. Con el plan de mantención mensual, Dinko recibe tus pedidos de cambio y los aplicamos directamente. Si prefieres un ajuste puntual sin mantención, también podemos cotizarlo por separado.</p></div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            <span data-i18n="faq5Q">¿Qué pasa si no me gusta el diseño?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner"><p data-i18n="faq5A">Antes de construir nada, te mostramos una dirección visual concreta — colores, tipografía, estructura — para que la apruebes o ajustemos el rumbo desde el principio. Así evitamos sorpresas al final.</p></div>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            <span data-i18n="faq6Q">¿Trabajan con negocios fuera de Calama?</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner"><p data-i18n="faq6A">Sí. Todo el proceso funciona perfectamente a distancia — por WhatsApp y videollamada — así que podemos trabajar con negocios en cualquier parte de Chile o incluso fuera del país.</p></div>
+          </div>
         </div>
       </div>
     </div>
@@ -639,7 +999,7 @@
   // ============ TRANSLATIONS ============
   var translations = {
     es: {
-      navNosotros:"Nosotros", navServicios:"Servicios", navProceso:"Proceso", navPrecios:"Precios", navCta:"Cotizar",
+      navNosotros:"Nosotros", navServicios:"Servicios", navProceso:"Proceso", navPrecios:"Precios", navFaq:"FAQ", navCta:"Cotizar",
       heroEyebrow:"Diseño & desarrollo web · Calama, Chile",
       heroTitle:"Presencia digital<br>para <span class=\"accent\">negocios reales</span>.",
       slogan0:"Sitios que se ven, no que se esconden.", slogan1:"Tu negocio, en línea, de verdad.",
@@ -676,15 +1036,51 @@
       pricingInfoTitle:"Cada proyecto tiene su propio precio.",
       pricingInfoDesc:"Incluye diseño a medida, desarrollo, optimización para celular y publicación en línea. El valor final depende del tamaño y complejidad del sitio — Dinko conversa contigo y te da un número exacto.",
       labelSitio:"Sitio web", unitCLP:"CLP", labelMantencion:"Mantención", unitCLPMes:"CLP / mes",
+      unitUSD:"USD", unitUSDMes:"USD / mes", currencyNote:"Conversión referencial a dólar — el pago se realiza en pesos chilenos.",
+      includeEyebrow:"Qué incluye", includeTitle:"Todo lo que se lleva cada proyecto.",
+      includeP:"Esto no cambia según el paquete — es la base de cualquier sitio que construimos.",
+      check1:"Diseño a medida, sin plantillas genéricas", check2:"Optimizado para verse bien en el celular",
+      check3:"Botón de WhatsApp integrado para tus clientes", check4:"Asesoría en dominio y hosting",
+      check5:"Publicación del sitio en línea", check6:"Acompañamiento directo por WhatsApp después de la entrega",
+      toolsEyebrow:"Nuestras herramientas", toolsTitle:"Tecnología moderna, sin vueltas.",
+      toolsP:"Construimos con herramientas actuales — el foco está en que tu sitio funcione rápido y bien, no en la moda tecnológica.",
+      tool1Title:"Código a medida", tool1Desc:"Cada sitio se construye desde cero para ese negocio — no es una plantilla con el logo cambiado.",
+      tool2Title:"Carga rápida", tool2Desc:"Sitios livianos, pensados para cargar rápido incluso con una conexión de celular promedio.",
+      tool3Title:"Hosting en la nube", tool3Desc:"Publicación en infraestructura moderna, con buen tiempo de actividad y sin caídas frecuentes.",
+      tool4Title:"Mobile-first", tool4Desc:"Diseñamos pensando primero en el celular, porque ahí es donde te va a encontrar la mayoría de tus clientes.",
+      compareEyebrow:"Cómo comparamos", compareTitle:"Antes de decidir, mira las diferencias.",
+      compareColDuna:"duna.web", compareColTemplate:"Plantilla gratuita", compareColFreelance:"Freelancer suelto",
+      compareRow1:"Diseño a medida", compareRow2:"Soporte después de la entrega",
+      compareRow3:"Base local en Calama", compareRow4:"Precio claro, sin sorpresas",
+      compareNote:"Una comparación general — cada freelancer y cada plantilla es distinta.",
+      calcEyebrow:"Un cálculo simple", calcTitle:"¿Cuánto te podría estar costando no tener sitio?",
+      calcP:"Mueve los controles según tu negocio — es solo una estimación para pensarlo, no una cifra exacta.",
+      calcLabelClients:"Clientes potenciales que buscan tu rubro por semana", calcLabelValue:"Valor promedio de un cliente (CLP)",
+      calcLabelRate:"% que se pierde por no tener sitio", calcResultLabel:"Estimado que podrías estar dejando pasar al mes",
+      calcNote:"Estimación ilustrativa basada en lo que ingreses — no considera todos los factores de tu negocio.",
       priceNote:"Rango referencial — el valor exacto se conversa según tu proyecto.",
       contactEyebrow:"Hablemos", contactTitle:"¿Listo para tener un sitio de verdad?",
       contactLead:"Cuéntanos sobre tu negocio y te respondemos con una propuesta concreta — sin vueltas.",
       btnWhatsapp2:"Escribir por WhatsApp", btnInstagram:"Ver Instagram", labelUbicacion:"Ubicación",
       footerTagline:"© 2026 duna.web — Presencia digital para negocios reales.",
-      waFloatAria:"Escribir por WhatsApp"
+      waFloatAria:"Escribir por WhatsApp",
+      faqEyebrow:"Preguntas frecuentes", faqTitle:"Antes de escribirnos.",
+      faqNote:"Haz clic en cada pregunta para ver la respuesta.",
+      faq1Q:"¿Cuánto se demora en estar listo mi sitio?",
+      faq1A:"Depende del tamaño del proyecto — una landing page simple toma menos tiempo que un sitio corporativo completo. Dinko te da un plazo estimado apenas conversan sobre tu proyecto.",
+      faq2Q:"¿Qué necesito para empezar?",
+      faq2A:"Solo contarnos sobre tu negocio: a qué te dedicas, qué quieres lograr con el sitio y, si tienes, algún logo o material gráfico ya existente. Si no tienes nada de eso, también podemos ayudarte a construirlo desde cero.",
+      faq3Q:"¿El dominio y el hosting están incluidos?",
+      faq3A:"Te asesoramos en la elección y configuración del dominio y el hosting, y te explicamos las opciones según tu presupuesto. Lo conversamos en detalle antes de empezar, para que sepas exactamente qué incluye tu proyecto.",
+      faq4Q:"¿Puedo pedir cambios después de que el sitio esté publicado?",
+      faq4A:"Sí. Con el plan de mantención mensual, Dinko recibe tus pedidos de cambio y los aplicamos directamente. Si prefieres un ajuste puntual sin mantención, también podemos cotizarlo por separado.",
+      faq5Q:"¿Qué pasa si no me gusta el diseño?",
+      faq5A:"Antes de construir nada, te mostramos una dirección visual concreta — colores, tipografía, estructura — para que la apruebes o ajustemos el rumbo desde el principio. Así evitamos sorpresas al final.",
+      faq6Q:"¿Trabajan con negocios fuera de Calama?",
+      faq6A:"Sí. Todo el proceso funciona perfectamente a distancia — por WhatsApp y videollamada — así que podemos trabajar con negocios en cualquier parte de Chile o incluso fuera del país."
     },
     fr: {
-      navNosotros:"À propos", navServicios:"Services", navProceso:"Processus", navPrecios:"Tarifs", navCta:"Devis",
+      navNosotros:"À propos", navServicios:"Services", navProceso:"Processus", navPrecios:"Tarifs", navFaq:"FAQ", navCta:"Devis",
       heroEyebrow:"Design & développement web · Calama, Chili",
       heroTitle:"Une présence numérique<br>pour <span class=\"accent\">de vraies entreprises</span>.",
       slogan0:"Des sites qui se voient, pas qui se cachent.", slogan1:"Votre entreprise, en ligne, pour de vrai.",
@@ -721,15 +1117,51 @@
       pricingInfoTitle:"Chaque projet a son propre prix.",
       pricingInfoDesc:"Inclut un design sur mesure, le développement, l'optimisation mobile et la mise en ligne. Le prix final dépend de la taille et de la complexité du site — Dinko en discute avec vous et vous donne un chiffre exact.",
       labelSitio:"Site web", unitCLP:"CLP", labelMantencion:"Maintenance", unitCLPMes:"CLP / mois",
+      unitUSD:"USD", unitUSDMes:"USD / mois", currencyNote:"Conversion indicative en dollars — le paiement se fait en pesos chiliens.",
+      includeEyebrow:"Ce qui est inclus", includeTitle:"Tout ce que comprend chaque projet.",
+      includeP:"Cela ne change pas selon le forfait — c'est la base de tous les sites que nous construisons.",
+      check1:"Design sur mesure, sans modèles génériques", check2:"Optimisé pour bien s'afficher sur mobile",
+      check3:"Bouton WhatsApp intégré pour vos clients", check4:"Conseil sur le domaine et l'hébergement",
+      check5:"Mise en ligne du site", check6:"Accompagnement direct sur WhatsApp après la livraison",
+      toolsEyebrow:"Nos outils", toolsTitle:"Une technologie moderne, sans détour.",
+      toolsP:"Nous construisons avec des outils actuels — l'objectif est que votre site fonctionne vite et bien, pas de suivre les modes technologiques.",
+      tool1Title:"Code sur mesure", tool1Desc:"Chaque site est construit de zéro pour cette entreprise — ce n'est pas un modèle avec le logo changé.",
+      tool2Title:"Chargement rapide", tool2Desc:"Des sites légers, conçus pour charger rapidement même avec une connexion mobile moyenne.",
+      tool3Title:"Hébergement dans le cloud", tool3Desc:"Mise en ligne sur une infrastructure moderne, avec une bonne disponibilité et peu de pannes.",
+      tool4Title:"Mobile-first", tool4Desc:"Nous concevons d'abord pour mobile, car c'est là que la plupart de vos clients vous trouveront.",
+      compareEyebrow:"Comment nous comparons", compareTitle:"Avant de décider, regardez les différences.",
+      compareColDuna:"duna.web", compareColTemplate:"Modèle gratuit", compareColFreelance:"Freelance isolé",
+      compareRow1:"Design sur mesure", compareRow2:"Support après la livraison",
+      compareRow3:"Ancrage local à Calama", compareRow4:"Prix clair, sans surprise",
+      compareNote:"Une comparaison générale — chaque freelance et chaque modèle est différent.",
+      calcEyebrow:"Un calcul simple", calcTitle:"Combien pourrait vous coûter l'absence de site web ?",
+      calcP:"Ajustez les curseurs selon votre entreprise — ce n'est qu'une estimation pour réfléchir, pas un chiffre exact.",
+      calcLabelClients:"Clients potentiels qui cherchent votre secteur par semaine", calcLabelValue:"Valeur moyenne d'un client (CLP)",
+      calcLabelRate:"% perdu en n'ayant pas de site", calcResultLabel:"Estimation de ce que vous pourriez perdre par mois",
+      calcNote:"Estimation indicative basée sur vos réponses — elle ne prend pas en compte tous les facteurs de votre entreprise.",
       priceNote:"Fourchette indicative — le montant exact se discute selon votre projet.",
       contactEyebrow:"Parlons-en", contactTitle:"Prêt à avoir un vrai site web ?",
       contactLead:"Parlez-nous de votre entreprise et nous vous répondrons avec une proposition concrète — sans détour.",
       btnWhatsapp2:"Écrire sur WhatsApp", btnInstagram:"Voir Instagram", labelUbicacion:"Emplacement",
       footerTagline:"© 2026 duna.web — Une présence numérique pour de vraies entreprises.",
-      waFloatAria:"Écrire sur WhatsApp"
+      waFloatAria:"Écrire sur WhatsApp",
+      faqEyebrow:"Questions fréquentes", faqTitle:"Avant de nous écrire.",
+      faqNote:"Cliquez sur chaque question pour voir la réponse.",
+      faq1Q:"Combien de temps faut-il pour que mon site soit prêt ?",
+      faq1A:"Cela dépend de la taille du projet — une simple landing page prend moins de temps qu'un site corporatif complet. Dinko vous donne un délai estimé dès que vous discutez de votre projet.",
+      faq2Q:"De quoi ai-je besoin pour commencer ?",
+      faq2A:"Il suffit de nous parler de votre entreprise : votre activité, ce que vous voulez accomplir avec le site et, si vous en avez, un logo ou du matériel graphique existant. Si vous n'avez rien de tout cela, nous pouvons aussi vous aider à le créer de zéro.",
+      faq3Q:"Le nom de domaine et l'hébergement sont-ils inclus ?",
+      faq3A:"Nous vous conseillons sur le choix et la configuration du domaine et de l'hébergement, et vous expliquons les options selon votre budget. Nous en discutons en détail avant de commencer, pour que vous sachiez exactement ce qu'inclut votre projet.",
+      faq4Q:"Puis-je demander des modifications après la mise en ligne du site ?",
+      faq4A:"Oui. Avec la formule de maintenance mensuelle, Dinko reçoit vos demandes de modification et nous les appliquons directement. Si vous préférez un ajustement ponctuel sans maintenance, nous pouvons aussi le chiffrer séparément.",
+      faq5Q:"Que se passe-t-il si le design ne me plaît pas ?",
+      faq5A:"Avant de construire quoi que ce soit, nous vous montrons une direction visuelle concrète — couleurs, typographie, structure — pour que vous la validiez ou que nous ajustions l'orientation dès le départ. Cela évite les surprises à la fin.",
+      faq6Q:"Travaillez-vous avec des entreprises en dehors de Calama ?",
+      faq6A:"Oui. Tout le processus fonctionne parfaitement à distance — par WhatsApp et appel vidéo — nous pouvons donc travailler avec des entreprises partout au Chili, voire à l'étranger."
     },
     en: {
-      navNosotros:"About", navServicios:"Services", navProceso:"Process", navPrecios:"Pricing", navCta:"Get a quote",
+      navNosotros:"About", navServicios:"Services", navProceso:"Process", navPrecios:"Pricing", navFaq:"FAQ", navCta:"Get a quote",
       heroEyebrow:"Web design & development · Calama, Chile",
       heroTitle:"Digital presence<br>for <span class=\"accent\">real businesses</span>.",
       slogan0:"Sites that show up, not hide away.", slogan1:"Your business, online, for real.",
@@ -766,12 +1198,48 @@
       pricingInfoTitle:"Every project has its own price.",
       pricingInfoDesc:"Includes custom design, development, mobile optimization, and going live. The final price depends on the site's size and complexity — Dinko discusses it with you and gives you an exact number.",
       labelSitio:"Website", unitCLP:"CLP", labelMantencion:"Maintenance", unitCLPMes:"CLP / month",
+      unitUSD:"USD", unitUSDMes:"USD / month", currencyNote:"Approximate USD conversion — payment is made in Chilean pesos.",
+      includeEyebrow:"What's included", includeTitle:"Everything every project comes with.",
+      includeP:"This doesn't change by package — it's the baseline for every site we build.",
+      check1:"Custom design, no generic templates", check2:"Optimized to look great on mobile",
+      check3:"WhatsApp button built in for your customers", check4:"Guidance on domain and hosting",
+      check5:"Getting the site live", check6:"Direct WhatsApp support after delivery",
+      toolsEyebrow:"Our tools", toolsTitle:"Modern technology, no runaround.",
+      toolsP:"We build with current tools — the focus is on your site working fast and well, not chasing tech trends.",
+      tool1Title:"Custom-built code", tool1Desc:"Every site is built from scratch for that business — not a template with a swapped logo.",
+      tool2Title:"Fast loading", tool2Desc:"Lightweight sites, built to load fast even on an average mobile connection.",
+      tool3Title:"Cloud hosting", tool3Desc:"Published on modern infrastructure, with solid uptime and few outages.",
+      tool4Title:"Mobile-first", tool4Desc:"We design for mobile first, since that's where most of your customers will find you.",
+      compareEyebrow:"How we compare", compareTitle:"Before you decide, see the differences.",
+      compareColDuna:"duna.web", compareColTemplate:"Free template", compareColFreelance:"A solo freelancer",
+      compareRow1:"Custom design", compareRow2:"Support after delivery",
+      compareRow3:"Local roots in Calama", compareRow4:"Clear pricing, no surprises",
+      compareNote:"A general comparison — every freelancer and every template is different.",
+      calcEyebrow:"A simple calculation", calcTitle:"How much could not having a website be costing you?",
+      calcP:"Adjust the sliders to match your business — it's just an estimate to think about, not an exact figure.",
+      calcLabelClients:"Potential customers searching for your business per week", calcLabelValue:"Average value of a customer (CLP)",
+      calcLabelRate:"% lost by not having a website", calcResultLabel:"Estimated amount you could be missing out on per month",
+      calcNote:"An illustrative estimate based on what you enter — it doesn't account for every factor in your business.",
       priceNote:"Reference range — the exact amount is discussed based on your project.",
       contactEyebrow:"Let's talk", contactTitle:"Ready for a real website?",
       contactLead:"Tell us about your business and we'll get back to you with a concrete proposal — no runaround.",
       btnWhatsapp2:"Message on WhatsApp", btnInstagram:"See Instagram", labelUbicacion:"Location",
       footerTagline:"© 2026 duna.web — Digital presence for real businesses.",
-      waFloatAria:"Message on WhatsApp"
+      waFloatAria:"Message on WhatsApp",
+      faqEyebrow:"Frequently asked questions", faqTitle:"Before you reach out.",
+      faqNote:"Click each question to see the answer.",
+      faq1Q:"How long does it take for my site to be ready?",
+      faq1A:"It depends on the size of the project — a simple landing page takes less time than a full corporate site. Dinko gives you an estimated timeline as soon as you discuss your project.",
+      faq2Q:"What do I need to get started?",
+      faq2A:"Just tell us about your business: what you do, what you want the site to achieve, and, if you have one, an existing logo or graphic material. If you don't have any of that, we can also help you build it from scratch.",
+      faq3Q:"Are the domain and hosting included?",
+      faq3A:"We advise you on choosing and setting up the domain and hosting, and walk you through the options based on your budget. We go over this in detail before starting, so you know exactly what your project includes.",
+      faq4Q:"Can I request changes after the site is live?",
+      faq4A:"Yes. With the monthly maintenance plan, Dinko takes your change requests and we apply them directly. If you'd prefer a one-off adjustment without maintenance, we can also quote that separately.",
+      faq5Q:"What happens if I don't like the design?",
+      faq5A:"Before building anything, we show you a concrete visual direction — colors, typography, structure — so you can approve it or we adjust the direction from the start. That way there are no surprises at the end.",
+      faq6Q:"Do you work with businesses outside Calama?",
+      faq6A:"Yes. The whole process works perfectly remotely — over WhatsApp and video calls — so we can work with businesses anywhere in Chile or even abroad."
     }
   };
 
@@ -811,6 +1279,34 @@
   if (savedLang && translations[savedLang]) applyLanguage(savedLang);
 
   // Remove the load scan-bar from the DOM once its animation finishes
+  // Theme toggle (dark/light), persisted
+  var themeBtn = document.getElementById('theme-toggle');
+  function setTheme(isDark){
+    document.body.classList.toggle('dark-mode', isDark);
+    if (themeBtn) themeBtn.setAttribute('aria-label', isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+    try { localStorage.setItem('dunaweb_theme', isDark ? 'dark' : 'light'); } catch(e){}
+  }
+  var savedTheme = null;
+  try { savedTheme = localStorage.getItem('dunaweb_theme'); } catch(e){}
+  if (savedTheme === 'dark') setTheme(true);
+  if (themeBtn){
+    themeBtn.addEventListener('click', function(){
+      setTheme(!document.body.classList.contains('dark-mode'));
+    });
+  }
+
+  // Scroll progress bar
+  var progressBar = document.getElementById('scroll-progress');
+  function updateProgress(){
+    if (!progressBar) return;
+    var scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    var pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+    progressBar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
   var scanBar = document.querySelector('.scan-bar');
   if (scanBar){
     scanBar.addEventListener('animationend', function(){ scanBar.remove(); });
@@ -854,6 +1350,50 @@
     circuits.forEach(function(c){ circuitObserver.observe(c); });
   }
 
+  // "Cuánto te cuesta no tener sitio" calculator
+  var calcClients = document.getElementById('calc-clients');
+  var calcValue = document.getElementById('calc-value');
+  var calcRate = document.getElementById('calc-rate');
+  var calcOutput = document.getElementById('calc-output');
+  if (calcClients && calcValue && calcRate && calcOutput){
+    var calcClientsVal = document.getElementById('calc-clients-val');
+    var calcValueVal = document.getElementById('calc-value-val');
+    var calcRateVal = document.getElementById('calc-rate-val');
+    function formatPlain(n){ return Math.round(n).toLocaleString('es-CL'); }
+    function recalc(){
+      var clientsPerWeek = parseInt(calcClients.value, 10);
+      var clientValue = parseInt(calcValue.value, 10);
+      var rate = parseInt(calcRate.value, 10) / 100;
+      calcClientsVal.textContent = clientsPerWeek;
+      calcValueVal.textContent = formatPlain(clientValue);
+      calcRateVal.textContent = calcRate.value + '%';
+      var monthlyEstimate = clientsPerWeek * 4.33 * clientValue * rate;
+      animateCount(calcOutput, monthlyEstimate);
+    }
+    [calcClients, calcValue, calcRate].forEach(function(input){
+      input.addEventListener('input', recalc);
+    });
+    var calcObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){ recalc(); calcObserver.disconnect(); }
+      });
+    }, { threshold: 0.3 });
+    calcObserver.observe(document.getElementById('calculadora'));
+  }
+
+  // FAQ accordion
+  var faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(function(item){
+    var question = item.querySelector('.faq-question');
+    var answer = item.querySelector('.faq-answer');
+    question.addEventListener('click', function(){
+      var isOpen = item.classList.contains('is-open');
+      item.classList.toggle('is-open', !isOpen);
+      question.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      answer.style.maxHeight = isOpen ? '0px' : (answer.scrollHeight + 'px');
+    });
+  });
+
   var flipCards = document.querySelectorAll('.flip-card');
   function toggleFlip(card){
     var flipped = card.classList.toggle('is-flipped');
@@ -893,12 +1433,18 @@
     if (el._raf) cancelAnimationFrame(el._raf);
     el._raf = requestAnimationFrame(step);
   }
-  var priceCounts = document.querySelectorAll('.count');
+  var currentCurrency = 'clp';
+  function countTarget(el){
+    var attr = currentCurrency === 'usd' ? 'data-target-usd' : 'data-target-clp';
+    return parseInt(el.getAttribute(attr) || el.getAttribute('data-target') || '0', 10);
+  }
+
+  var priceCounts = document.querySelectorAll('.price-figures .count');
   if (priceCounts.length){
     var countObserver = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
         if (entry.isIntersecting){
-          animateCount(entry.target, parseInt(entry.target.getAttribute('data-target'), 10));
+          animateCount(entry.target, countTarget(entry.target));
         } else {
           if (entry.target._raf) cancelAnimationFrame(entry.target._raf);
           entry.target.textContent = '0';
@@ -907,6 +1453,19 @@
     }, { threshold: 0.5 });
     priceCounts.forEach(function(c){ countObserver.observe(c); });
   }
+
+  // Currency switch — re-animates the visible counters in the new currency
+  var currencyButtons = document.querySelectorAll('.currency-btn');
+  currencyButtons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var currency = btn.getAttribute('data-currency');
+      if (currency === currentCurrency) return;
+      currentCurrency = currency;
+      document.body.classList.toggle('currency-usd', currency === 'usd');
+      currencyButtons.forEach(function(b){ b.classList.toggle('is-active', b === btn); });
+      priceCounts.forEach(function(c){ animateCount(c, countTarget(c)); });
+    });
+  });
 })();
 </script>
 

@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>duna.web · Presencia digital para negocios reales</title>
 <meta name="description" content="Agencia de diseño y desarrollo web en Calama, Chile. Páginas web corporativas, landing pages y menús digitales hechos a mano para negocios reales.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23F6F0E4'/%3E%3Ctext x='50' y='70' font-family='Arial, Helvetica, sans-serif' font-weight='700' font-size='60' fill='%23141414' text-anchor='middle'%3Ed%3C/text%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="duna.web">
+<meta property="og:title" content="duna.web · Presencia digital para negocios reales">
+<meta property="og:description" content="Agencia de diseño y desarrollo web en Calama, Chile. Páginas web corporativas, landing pages y menús digitales hechos a mano para negocios reales.">
+<meta property="og:image" content="og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_CL">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="duna.web · Presencia digital para negocios reales">
+<meta name="twitter:description" content="Agencia de diseño y desarrollo web en Calama, Chile.">
+<meta name="twitter:image" content="og-image.png">
+<meta name="theme-color" content="#F6F0E4">
+<meta name="theme-color" content="#14110C" media="(prefers-color-scheme: dark)">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -103,7 +118,15 @@
     backdrop-filter:blur(8px);
     border-bottom:1px solid var(--line);
   }
-  .nav-inner{ display:flex; align-items:center; justify-content:space-between; padding:24px 32px; max-width:1140px; margin:0 auto; }
+  .nav-inner{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; padding:24px 32px; max-width:1140px; margin:0 auto; }
+  @media (max-width:420px){
+    .nav-inner{ padding:16px 18px; }
+    .logo{ font-size:16px; }
+    .theme-toggle{ width:30px; height:30px; margin-right:8px; }
+    .lang-switch{ margin-right:8px; }
+    .lang-btn{ padding:5px 6px; font-size:10px; }
+    .nav-cta{ padding:9px 14px; font-size:11.5px; }
+  }
   .logo{ font-family:var(--display); font-weight:400; font-size:21px; color:var(--ink); }
   .logo .dot{ color:var(--accent); }
   .nav-links{ display:flex; gap:38px; font-size:13.5px; font-weight:500; color:var(--ink-soft); }
@@ -449,6 +472,83 @@
     font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1; margin-bottom:16px;
   }
   .calc-note{ font-size:12px; color:rgba(246,240,228,0.5); max-width:none; }
+
+  /* ============ BUNDLES ============ */
+  .bundles-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; align-items:start; }
+  .bundle-card{
+    background:var(--card-bg); border:1px solid var(--line); padding:32px 28px;
+    transition:transform .25s var(--ease), box-shadow .25s var(--ease), border-color .25s ease;
+  }
+  .bundle-card:hover{ transform:translateY(-3px); box-shadow:0 16px 32px rgba(20,17,12,0.08); }
+  .bundle-card.is-featured{ border-color:var(--accent); position:relative; }
+  .bundle-tag{
+    position:absolute; top:-13px; left:28px; background:var(--accent); color:var(--cream);
+    font-size:11px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; padding:5px 12px;
+  }
+  .bundle-name{ font-family:var(--display); font-weight:500; font-size:22px; color:var(--ink); margin-bottom:6px; }
+  .bundle-range{ font-family:var(--display); font-weight:600; font-size:19px; color:var(--accent-text); margin-bottom:14px; }
+  .bundle-range span{ font-family:var(--sans); font-size:12px; font-weight:400; color:var(--ink-soft); }
+  .bundle-for{ font-size:14px; color:var(--ink-soft); margin-bottom:22px; min-height:38px; }
+  .bundle-list{ list-style:none; display:flex; flex-direction:column; gap:12px; }
+  .bundle-list li{
+    font-size:13.5px; color:var(--ink); padding-left:20px; position:relative; line-height:1.5;
+  }
+  .bundle-list li::before{
+    content:"+"; position:absolute; left:0; top:0; color:var(--accent); font-weight:700;
+  }
+  .bundles-note{ font-size:12.5px; color:var(--ink-soft); font-style:italic; margin-top:28px; text-align:center; }
+
+  /* ============ DIFFERENCE MOCKUP ============ */
+  .diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .diff-frame{ border:1px solid var(--line); overflow:hidden; background:var(--card-bg); }
+  .diff-browser-bar{ display:flex; gap:6px; padding:12px 14px; border-bottom:1px solid var(--line); }
+  .diff-browser-bar span{ width:8px; height:8px; border-radius:50%; background:var(--line); display:block; }
+  .diff-label{ text-align:center; padding:12px; font-size:11.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink-soft); border-top:1px solid var(--line); }
+
+  .diff-generic{ background:linear-gradient(135deg,#3b6fd6,#d64545); padding:30px 22px; text-align:center; font-family:Arial, Helvetica, sans-serif; }
+  .diff-generic-logo{ display:inline-block; background:#fff; color:#333; font-weight:900; padding:6px 16px; border-radius:50px; font-size:11px; letter-spacing:0.05em; margin-bottom:22px; box-shadow:0 2px 6px rgba(0,0,0,0.25); }
+  .diff-generic-title{ color:#fff; font-size:19px; font-weight:900; text-shadow:1px 1px 3px rgba(0,0,0,0.35); margin-bottom:8px; }
+  .diff-generic-sub{ color:#fff; font-size:11px; opacity:0.9; margin-bottom:18px; }
+  .diff-generic-btn{ display:inline-block; background:#facc15; color:#78350f; font-weight:800; font-size:11px; padding:11px 20px; border-radius:50px; box-shadow:0 3px 0 rgba(0,0,0,0.25); margin-bottom:20px; }
+  .diff-generic-blocks{ display:flex; gap:8px; justify-content:center; }
+  .diff-generic-blocks div{ width:52px; height:34px; background:rgba(255,255,255,0.22); border:1px dashed rgba(255,255,255,0.5); }
+
+  .diff-duna{ background:var(--bg); padding:38px 30px; text-align:left; min-height:266px; display:flex; flex-direction:column; justify-content:center; }
+  .diff-duna-eyebrow{ font-size:10.5px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent-text); margin-bottom:16px; }
+  .diff-duna-title{ font-family:var(--display); font-weight:500; font-size:23px; color:var(--ink); line-height:1.28; margin-bottom:24px; max-width:15ch; }
+  .diff-duna-btn{ display:inline-block; background:var(--ink); color:var(--bg); font-size:11.5px; font-weight:700; padding:12px 22px; letter-spacing:0.03em; width:fit-content; }
+  @media (max-width:760px){ .diff-grid{ grid-template-columns:1fr; } }
+
+  /* ============ QUIZ ============ */
+  .quiz-box{ max-width:600px; margin:0 auto; border:1px solid var(--line); background:var(--card-bg); padding:44px; text-align:center; }
+  .quiz-question{ font-family:var(--display); font-weight:500; font-size:21px; color:var(--ink); margin-bottom:26px; }
+  .quiz-options{ display:flex; flex-direction:column; gap:12px; }
+  .quiz-option{
+    font-family:var(--sans); font-size:14.5px; font-weight:600; color:var(--ink);
+    background:var(--bg); border:1px solid var(--line); padding:15px 18px; cursor:pointer;
+    transition:border-color .2s ease, background .2s ease, transform .15s ease;
+  }
+  .quiz-option:hover{ border-color:var(--accent); background:var(--accent-dim); transform:translateY(-1px); }
+  .quiz-result-label{ font-size:13px; color:var(--ink-soft); margin-bottom:10px; }
+  .quiz-result-name{ font-family:var(--display); font-weight:600; font-size:30px; color:var(--accent-text); margin-bottom:10px; }
+  .quiz-result-desc{ font-size:14.5px; color:var(--ink-soft); margin-bottom:28px; }
+  .quiz-result-actions{ display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .quiz-restart{
+    font-family:var(--sans); font-size:12.5px; color:var(--ink-soft); background:none; border:none;
+    text-decoration:underline; cursor:pointer;
+  }
+  .quiz-restart:hover{ color:var(--accent-text); }
+  @media (max-width:600px){ .quiz-box{ padding:28px 22px; } }
+
+  /* ============ TRUST STRIP ============ */
+  .trust-strip{ display:flex; flex-wrap:wrap; justify-content:center; border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .trust-item{
+    padding:20px 26px; font-size:12px; font-weight:600; letter-spacing:0.03em; color:var(--ink-soft);
+    border-left:1px solid var(--line); text-align:center;
+  }
+  .trust-item:first-child{ border-left:none; }
+  @media (max-width:640px){ .trust-item{ border-left:none; border-top:1px solid var(--line); width:50%; } .trust-item:nth-child(1), .trust-item:nth-child(2){ border-top:none; } }
+  @media (max-width:900px){ .bundles-grid{ grid-template-columns:1fr; max-width:480px; margin:0 auto; } .bundle-card.is-featured{ order:-1; } }
   @media (max-width:820px){ .calc-box{ grid-template-columns:1fr; } .calc-controls, .calc-result{ padding:32px; } }
 
   .contact{ background:var(--dark); color:var(--cream); text-align:center; padding:126px 0; position:relative; overflow:hidden; }
@@ -848,8 +948,41 @@
     </div>
   </section>
 
+  <!-- LA DIFERENCIA SE NOTA -->
+  <section id="diferencia">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow" data-i18n="diffEyebrow">La diferencia se nota</span>
+        <h2 data-i18n="diffTitle">No todos los sitios se ven igual.</h2>
+        <p data-i18n="diffP">Una ilustración simple de lo que cambia entre una plantilla genérica y un sitio hecho a medida.</p>
+      </div>
+      <div class="diff-grid">
+        <div class="diff-frame" data-reveal="left">
+          <div class="diff-browser-bar"><span></span><span></span><span></span></div>
+          <div class="diff-content diff-generic">
+            <div class="diff-generic-logo">LOGO</div>
+            <div class="diff-generic-title" data-i18n="diffGenericTitle">Bienvenidos a Nuestra Empresa</div>
+            <div class="diff-generic-sub" data-i18n="diffGenericSub">Lorem ipsum dolor sit amet consectetur</div>
+            <div class="diff-generic-btn" data-i18n="diffGenericBtn">¡Contáctenos Ya!</div>
+            <div class="diff-generic-blocks"><div></div><div></div><div></div></div>
+          </div>
+          <div class="diff-label" data-i18n="diffLabelGeneric">Plantilla genérica</div>
+        </div>
+        <div class="diff-frame" data-reveal="right">
+          <div class="diff-browser-bar"><span></span><span></span><span></span></div>
+          <div class="diff-content diff-duna">
+            <div class="diff-duna-eyebrow" data-i18n="diffDunaEyebrow">Tu negocio</div>
+            <div class="diff-duna-title" data-i18n="diffDunaTitle">Presencia digital para negocios reales.</div>
+            <div class="diff-duna-btn" data-i18n="diffDunaBtn">Escríbenos</div>
+          </div>
+          <div class="diff-label" data-i18n="diffLabelDuna">Estilo duna.web</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CALCULADORA -->
-  <section id="calculadora">
+  <section id="calculadora" class="panel-alt">
     <div class="wrap">
       <div class="section-head" data-reveal>
         <span class="eyebrow" data-i18n="calcEyebrow">Un cálculo simple</span>
@@ -880,8 +1013,94 @@
     </div>
   </section>
 
+  <!-- ARMA TU SITIO -->
+  <section id="quiz">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow" data-i18n="quizEyebrow">Arma tu sitio</span>
+        <h2 data-i18n="quizTitle">¿No sabes qué necesitas? Respondamos dos preguntas.</h2>
+        <p data-i18n="quizP">Es solo para orientarte. La conversación real la tienes con Dinko.</p>
+      </div>
+      <div class="quiz-box" data-reveal="scale">
+        <div class="quiz-step" id="quiz-step-1">
+          <div class="quiz-question" data-i18n="quizQ1">¿Cuántas secciones necesita tu sitio?</div>
+          <div class="quiz-options">
+            <button type="button" class="quiz-option" data-tier="0" data-i18n="quizQ1Opt1">Solo una página</button>
+            <button type="button" class="quiz-option" data-tier="1" data-i18n="quizQ1Opt2">Varias secciones</button>
+            <button type="button" class="quiz-option" data-tier="2" data-i18n="quizQ1Opt3">Necesito funciones especiales</button>
+          </div>
+        </div>
+        <div class="quiz-step" id="quiz-step-2" style="display:none;">
+          <div class="quiz-question" data-i18n="quizQ2">¿Ya tienes identidad visual (logo, colores)?</div>
+          <div class="quiz-options">
+            <button type="button" class="quiz-option" data-bump="0" data-i18n="quizQ2Opt1">Sí, todo listo</button>
+            <button type="button" class="quiz-option" data-bump="0" data-i18n="quizQ2Opt2">Tengo algo, falta pulir</button>
+            <button type="button" class="quiz-option" data-bump="1" data-i18n="quizQ2Opt3">No tengo nada todavía</button>
+          </div>
+        </div>
+        <div class="quiz-result" id="quiz-result" style="display:none;">
+          <div class="quiz-result-label" data-i18n="quizResultLabel">Según lo que nos contaste, te conviene:</div>
+          <div class="quiz-result-name" id="quiz-result-name"></div>
+          <div class="quiz-result-desc" id="quiz-result-desc"></div>
+          <div class="quiz-result-actions">
+            <a class="btn btn-primary" id="quiz-result-cta" href="https://wa.me/56920156174" target="_blank" rel="noopener" data-i18n="quizResultCta">Conversar por WhatsApp</a>
+            <button type="button" class="quiz-restart" id="quiz-restart" data-i18n="quizRestart">Volver a empezar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAQUETES -->
+  <section id="paquetes" class="panel-alt">
+    <div class="wrap">
+      <div class="section-head" data-reveal>
+        <span class="eyebrow" data-i18n="bundlesEyebrow">Paquetes de referencia</span>
+        <h2 data-i18n="bundlesTitle">Tres puntos de partida, no tres precios fijos.</h2>
+        <p data-i18n="bundlesP">Sirven para que te hagas una idea antes de conversar. El número final siempre lo conversa Dinko contigo.</p>
+      </div>
+      <div class="bundles-grid">
+        <div class="bundle-card" data-reveal style="--d:0ms;">
+          <div class="bundle-name" data-i18n="bundle1Name">Esencial</div>
+          <div class="bundle-range">$90.000&ndash;120.000 <span data-i18n="unitCLP2">CLP</span></div>
+          <div class="bundle-for" data-i18n="bundle1For">Para quien necesita una sola página, bien hecha.</div>
+          <ul class="bundle-list">
+            <li data-i18n="bundle1Item1">Landing page de una sola página</li>
+            <li data-i18n="bundle1Item2">Diseño responsive para celular</li>
+            <li data-i18n="bundle1Item3">Botón de WhatsApp integrado</li>
+            <li data-i18n="bundle1Item4">Publicación del sitio en línea</li>
+          </ul>
+        </div>
+        <div class="bundle-card is-featured" data-reveal="scale" style="--d:90ms;">
+          <div class="bundle-tag" data-i18n="bundleFeatured">La más elegida</div>
+          <div class="bundle-name" data-i18n="bundle2Name">Negocio</div>
+          <div class="bundle-range">$120.000&ndash;150.000 <span data-i18n="unitCLP2">CLP</span></div>
+          <div class="bundle-for" data-i18n="bundle2For">Para un negocio que necesita presentarse completo.</div>
+          <ul class="bundle-list">
+            <li data-i18n="bundle2Item1">Todo lo de Esencial</li>
+            <li data-i18n="bundle2Item2">Hasta 5 secciones (nosotros, servicios, galería, contacto)</li>
+            <li data-i18n="bundle2Item3">Optimización básica para buscadores</li>
+            <li data-i18n="bundle2Item4">Asesoría en dominio y hosting</li>
+          </ul>
+        </div>
+        <div class="bundle-card" data-reveal="right" style="--d:180ms;">
+          <div class="bundle-name" data-i18n="bundle3Name">A medida</div>
+          <div class="bundle-range">$150.000&ndash;180.000 <span data-i18n="unitCLP2">CLP</span></div>
+          <div class="bundle-for" data-i18n="bundle3For">Para proyectos con necesidades particulares.</div>
+          <ul class="bundle-list">
+            <li data-i18n="bundle3Item1">Todo lo de Negocio</li>
+            <li data-i18n="bundle3Item2">Funciones especiales: formularios, menús digitales, integraciones</li>
+            <li data-i18n="bundle3Item3">Primer mes de mantención incluido</li>
+            <li data-i18n="bundle3Item4">Seguimiento cercano con Dinko durante el proyecto</li>
+          </ul>
+        </div>
+      </div>
+      <p class="bundles-note" data-i18n="bundlesNote">Referencial. Cada proyecto es distinto y el valor final se conversa según lo que necesites.</p>
+    </div>
+  </section>
+
   <!-- PRECIOS -->
-  <section id="precios" class="panel-alt">
+  <section id="precios">
     <div class="wrap">
       <div class="section-head" data-reveal>
         <span class="eyebrow" data-i18n="pricingEyebrow">Inversión</span>
@@ -913,7 +1132,7 @@
   </section>
 
   <!-- PREGUNTAS FRECUENTES -->
-  <section id="faq">
+  <section id="faq" class="panel-alt">
     <div class="wrap">
       <div class="section-head" data-reveal>
         <span class="eyebrow" data-i18n="faqEyebrow">Preguntas frecuentes</span>
@@ -978,6 +1197,14 @@
       </div>
     </div>
   </section>
+
+  <!-- FRANJA DE CONFIANZA -->
+  <div class="trust-strip" data-reveal="scale">
+    <div class="trust-item" data-i18n="trust1">Conexión segura (SSL)</div>
+    <div class="trust-item" data-i18n="trust2">Optimizado para buscadores</div>
+    <div class="trust-item" data-i18n="trust3">Pensado primero para celular</div>
+    <div class="trust-item" data-i18n="trust4">Soporte real desde Calama</div>
+  </div>
 
   <!-- CONTACTO -->
   <section class="contact">
@@ -1058,6 +1285,35 @@
       why2Title:"Precios claros", why2Desc:"Un rango de valores simple y una mantención mensual accesible. Sin letra chica ni cobros sorpresa.",
       why3Title:"Base local", why3Desc:"Somos de Calama y entendemos el mercado del norte de Chile. No somos una agencia remota que nunca pisó la región.",
       why4Title:"Soporte real", why4Desc:"Dinko responde directamente por WhatsApp. No hay tickets, formularios ni esperas de días.",
+      diffEyebrow:"La diferencia se nota", diffTitle:"No todos los sitios se ven igual.",
+      diffP:"Una ilustración simple de lo que cambia entre una plantilla genérica y un sitio hecho a medida.",
+      diffGenericTitle:"Bienvenidos a Nuestra Empresa", diffGenericSub:"Lorem ipsum dolor sit amet consectetur",
+      diffGenericBtn:"¡Contáctenos Ya!", diffLabelGeneric:"Plantilla genérica",
+      diffDunaEyebrow:"Tu negocio", diffDunaTitle:"Presencia digital para negocios reales.",
+      diffDunaBtn:"Escríbenos", diffLabelDuna:"Estilo duna.web",
+      quizEyebrow:"Arma tu sitio", quizTitle:"¿No sabes qué necesitas? Respondamos dos preguntas.",
+      quizP:"Es solo para orientarte. La conversación real la tienes con Dinko.",
+      quizQ1:"¿Cuántas secciones necesita tu sitio?", quizQ1Opt1:"Solo una página",
+      quizQ1Opt2:"Varias secciones", quizQ1Opt3:"Necesito funciones especiales",
+      quizQ2:"¿Ya tienes identidad visual (logo, colores)?", quizQ2Opt1:"Sí, todo listo",
+      quizQ2Opt2:"Tengo algo, falta pulir", quizQ2Opt3:"No tengo nada todavía",
+      quizResultLabel:"Según lo que nos contaste, te conviene:", quizResultCta:"Conversar por WhatsApp",
+      quizRestart:"Volver a empezar",
+      trust1:"Conexión segura (SSL)", trust2:"Optimizado para buscadores",
+      trust3:"Pensado primero para celular", trust4:"Soporte real desde Calama",
+      bundlesEyebrow:"Paquetes de referencia", bundlesTitle:"Tres puntos de partida, no tres precios fijos.",
+      bundlesP:"Sirven para que te hagas una idea antes de conversar. El número final siempre lo conversa Dinko contigo.",
+      bundle1Name:"Esencial", bundle1For:"Para quien necesita una sola página, bien hecha.",
+      bundle1Item1:"Landing page de una sola página", bundle1Item2:"Diseño responsive para celular",
+      bundle1Item3:"Botón de WhatsApp integrado", bundle1Item4:"Publicación del sitio en línea",
+      bundleFeatured:"La más elegida",
+      bundle2Name:"Negocio", bundle2For:"Para un negocio que necesita presentarse completo.",
+      bundle2Item1:"Todo lo de Esencial", bundle2Item2:"Hasta 5 secciones (nosotros, servicios, galería, contacto)",
+      bundle2Item3:"Optimización básica para buscadores", bundle2Item4:"Asesoría en dominio y hosting",
+      bundle3Name:"A medida", bundle3For:"Para proyectos con necesidades particulares.",
+      bundle3Item1:"Todo lo de Negocio", bundle3Item2:"Funciones especiales: formularios, menús digitales, integraciones",
+      bundle3Item3:"Primer mes de mantención incluido", bundle3Item4:"Seguimiento cercano con Dinko durante el proyecto",
+      unitCLP2:"CLP", bundlesNote:"Referencial. Cada proyecto es distinto y el valor final se conversa según lo que necesites.",
       pricingEyebrow:"Inversión", pricingTitle:"Variable, según lo que necesite tu negocio.",
       pricingInfoTitle:"Cada proyecto tiene su propio precio.",
       pricingInfoDesc:"Incluye diseño a medida, desarrollo, optimización para celular y publicación en línea. El valor final depende del tamaño y complejidad del sitio. Dinko conversa contigo y te da un número exacto.",
@@ -1139,6 +1395,35 @@
       why2Title:"Des tarifs clairs", why2Desc:"Une fourchette de prix simple et une maintenance mensuelle accessible. Sans petites lignes ni frais surprises.",
       why3Title:"Ancrage local", why3Desc:"Nous sommes de Calama et connaissons le marché du nord du Chili. Pas une agence à distance qui n'a jamais mis les pieds dans la région.",
       why4Title:"Un vrai support", why4Desc:"Dinko répond directement sur WhatsApp. Pas de tickets, pas de formulaires, pas d'attente de plusieurs jours.",
+      diffEyebrow:"La différence se voit", diffTitle:"Tous les sites ne se ressemblent pas.",
+      diffP:"Une illustration simple de ce qui change entre un modèle générique et un site sur mesure.",
+      diffGenericTitle:"Bienvenue Dans Notre Entreprise", diffGenericSub:"Lorem ipsum dolor sit amet consectetur",
+      diffGenericBtn:"Contactez-Nous Vite !", diffLabelGeneric:"Modèle générique",
+      diffDunaEyebrow:"Votre entreprise", diffDunaTitle:"Une présence numérique pour de vraies entreprises.",
+      diffDunaBtn:"Écrivez-nous", diffLabelDuna:"Style duna.web",
+      quizEyebrow:"Composez votre site", quizTitle:"Vous ne savez pas quoi choisir ? Deux questions rapides.",
+      quizP:"C'est juste pour vous orienter. La vraie discussion se fait avec Dinko.",
+      quizQ1:"Combien de sections votre site a-t-il besoin ?", quizQ1Opt1:"Une seule page",
+      quizQ1Opt2:"Plusieurs sections", quizQ1Opt3:"J'ai besoin de fonctions spéciales",
+      quizQ2:"Avez-vous déjà une identité visuelle (logo, couleurs) ?", quizQ2Opt1:"Oui, tout est prêt",
+      quizQ2Opt2:"J'ai quelque chose, à affiner", quizQ2Opt3:"Je n'ai encore rien",
+      quizResultLabel:"D'après ce que vous nous avez dit, il vous faut :", quizResultCta:"Discuter sur WhatsApp",
+      quizRestart:"Recommencer",
+      trust1:"Connexion sécurisée (SSL)", trust2:"Optimisé pour les moteurs de recherche",
+      trust3:"Pensé d'abord pour mobile", trust4:"Support réel depuis Calama",
+      bundlesEyebrow:"Forfaits de référence", bundlesTitle:"Trois points de départ, pas trois prix fixes.",
+      bundlesP:"Ils servent à vous donner une idée avant d'en discuter. Le montant final se décide toujours avec Dinko.",
+      bundle1Name:"Essentiel", bundle1For:"Pour qui a besoin d'une seule page, bien faite.",
+      bundle1Item1:"Landing page d'une seule page", bundle1Item2:"Design responsive pour mobile",
+      bundle1Item3:"Bouton WhatsApp intégré", bundle1Item4:"Mise en ligne du site",
+      bundleFeatured:"Le plus choisi",
+      bundle2Name:"Entreprise", bundle2For:"Pour une entreprise qui doit se présenter en entier.",
+      bundle2Item1:"Tout ce qui est dans Essentiel", bundle2Item2:"Jusqu'à 5 sections (à propos, services, galerie, contact)",
+      bundle2Item3:"Optimisation de base pour les moteurs de recherche", bundle2Item4:"Conseil sur le domaine et l'hébergement",
+      bundle3Name:"Sur mesure", bundle3For:"Pour des projets avec des besoins particuliers.",
+      bundle3Item1:"Tout ce qui est dans Entreprise", bundle3Item2:"Fonctions spéciales : formulaires, menus numériques, intégrations",
+      bundle3Item3:"Premier mois de maintenance inclus", bundle3Item4:"Suivi rapproché avec Dinko pendant le projet",
+      unitCLP2:"CLP", bundlesNote:"À titre indicatif. Chaque projet est différent et le montant final se discute selon vos besoins.",
       pricingEyebrow:"Investissement", pricingTitle:"Variable, selon les besoins de votre entreprise.",
       pricingInfoTitle:"Chaque projet a son propre prix.",
       pricingInfoDesc:"Inclut un design sur mesure, le développement, l'optimisation mobile et la mise en ligne. Le prix final dépend de la taille et de la complexité du site. Dinko en discute avec vous et vous donne un chiffre exact.",
@@ -1220,6 +1505,35 @@
       why2Title:"Clear pricing", why2Desc:"A simple price range and an affordable monthly maintenance fee. No fine print, no surprise charges.",
       why3Title:"Local roots", why3Desc:"We're based in Calama and understand the northern Chile market. Not a remote agency that's never set foot in the region.",
       why4Title:"Real support", why4Desc:"Dinko answers directly on WhatsApp. No tickets, no forms, no days-long waits.",
+      diffEyebrow:"The difference shows", diffTitle:"Not every site looks the same.",
+      diffP:"A simple illustration of what changes between a generic template and a custom-built site.",
+      diffGenericTitle:"Welcome To Our Company", diffGenericSub:"Lorem ipsum dolor sit amet consectetur",
+      diffGenericBtn:"Contact Us Now!", diffLabelGeneric:"Generic template",
+      diffDunaEyebrow:"Your business", diffDunaTitle:"Digital presence for real businesses.",
+      diffDunaBtn:"Message us", diffLabelDuna:"duna.web style",
+      quizEyebrow:"Build your site", quizTitle:"Not sure what you need? Two quick questions.",
+      quizP:"This is just to point you in the right direction. The real conversation happens with Dinko.",
+      quizQ1:"How many sections does your site need?", quizQ1Opt1:"Just one page",
+      quizQ1Opt2:"Several sections", quizQ1Opt3:"I need special features",
+      quizQ2:"Do you already have a visual identity (logo, colors)?", quizQ2Opt1:"Yes, all set",
+      quizQ2Opt2:"I have something, needs polish", quizQ2Opt3:"I have nothing yet",
+      quizResultLabel:"Based on what you told us, you'd want:", quizResultCta:"Chat on WhatsApp",
+      quizRestart:"Start over",
+      trust1:"Secure connection (SSL)", trust2:"Optimized for search engines",
+      trust3:"Designed mobile-first", trust4:"Real support from Calama",
+      bundlesEyebrow:"Reference packages", bundlesTitle:"Three starting points, not three fixed prices.",
+      bundlesP:"These give you an idea before we talk. The final number is always discussed with Dinko.",
+      bundle1Name:"Essential", bundle1For:"For anyone who needs a single page, done right.",
+      bundle1Item1:"Single-page landing page", bundle1Item2:"Responsive design for mobile",
+      bundle1Item3:"WhatsApp button built in", bundle1Item4:"Getting the site live",
+      bundleFeatured:"Most chosen",
+      bundle2Name:"Business", bundle2For:"For a business that needs to fully present itself.",
+      bundle2Item1:"Everything in Essential", bundle2Item2:"Up to 5 sections (about, services, gallery, contact)",
+      bundle2Item3:"Basic search engine optimization", bundle2Item4:"Guidance on domain and hosting",
+      bundle3Name:"Custom", bundle3For:"For projects with particular needs.",
+      bundle3Item1:"Everything in Business", bundle3Item2:"Special features: forms, digital menus, integrations",
+      bundle3Item3:"First month of maintenance included", bundle3Item4:"Close follow-up with Dinko throughout the project",
+      unitCLP2:"CLP", bundlesNote:"For reference only. Every project is different, and the final price is discussed based on what you need.",
       pricingEyebrow:"Investment", pricingTitle:"Variable, based on what your business needs.",
       pricingInfoTitle:"Every project has its own price.",
       pricingInfoDesc:"Includes custom design, development, mobile optimization, and going live. The final price depends on the site's size and complexity. Dinko discusses it with you and gives you an exact number.",
@@ -1269,8 +1583,10 @@
     }
   };
 
+  var currentLang = 'es';
   function applyLanguage(lang){
     var dict = translations[lang] || translations.es;
+    currentLang = translations[lang] ? lang : 'es';
     document.documentElement.lang = lang;
 
     document.querySelectorAll('[data-i18n]').forEach(function(el){
@@ -1417,6 +1733,49 @@
       });
     }, { threshold: 0.3 });
     calcObserver.observe(document.getElementById('calculadora'));
+  }
+
+  // "Arma tu sitio" quiz — recommends a bundle based on two answers
+  var quizStep1 = document.getElementById('quiz-step-1');
+  var quizStep2 = document.getElementById('quiz-step-2');
+  var quizResult = document.getElementById('quiz-result');
+  if (quizStep1 && quizStep2 && quizResult){
+    var quizTier = 0;
+    var quizNameKeys = ['bundle1Name', 'bundle2Name', 'bundle3Name'];
+    var quizForKeys = ['bundle1For', 'bundle2For', 'bundle3For'];
+
+    quizStep1.querySelectorAll('.quiz-option').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        quizTier = parseInt(btn.getAttribute('data-tier'), 10);
+        quizStep1.style.display = 'none';
+        quizStep2.style.display = '';
+      });
+    });
+
+    quizStep2.querySelectorAll('.quiz-option').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var bump = parseInt(btn.getAttribute('data-bump'), 10);
+        quizTier = Math.min(2, quizTier + bump);
+        var dict = translations[currentLang] || translations.es;
+        var bundleName = dict[quizNameKeys[quizTier]];
+        document.getElementById('quiz-result-name').textContent = bundleName;
+        document.getElementById('quiz-result-desc').textContent = dict[quizForKeys[quizTier]];
+        var waMessage = encodeURIComponent('Hola, hice el quiz de duna.web y me recomendó el paquete "' + bundleName + '". Quiero cotizar mi sitio.');
+        document.getElementById('quiz-result-cta').href = 'https://wa.me/56920156174?text=' + waMessage;
+        quizStep2.style.display = 'none';
+        quizResult.style.display = '';
+      });
+    });
+
+    var quizRestartBtn = document.getElementById('quiz-restart');
+    if (quizRestartBtn){
+      quizRestartBtn.addEventListener('click', function(){
+        quizTier = 0;
+        quizResult.style.display = 'none';
+        quizStep2.style.display = 'none';
+        quizStep1.style.display = '';
+      });
+    }
   }
 
   // FAQ accordion
